@@ -20,7 +20,7 @@ class Background
 
 Background::Background()
 {
-    backgroundTexture.loadFromFile("grass.png");
+    backgroundTexture.loadFromFile("Textures/grass.png");
 
     sf::Sprite temp;
     temp.setTexture(backgroundTexture);

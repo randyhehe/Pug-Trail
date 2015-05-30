@@ -29,7 +29,7 @@ Animal::Animal()
     //Initialize srand
     srand(time(0));
 
-    animalTexture.loadFromFile("pug.png");
+    animalTexture.loadFromFile("Textures/pug.png");
     animalSprite.setTexture(animalTexture);
     animalSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     animalSprite.setScale(0.90, 0.90);

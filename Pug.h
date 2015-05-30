@@ -27,30 +27,12 @@ class Pug
         bool hitBody();
         void addDog();
 };
-
-bool Pug::hitBody()
-{
-    for(unsigned i = 1; i < vecDogSprites.size(); i++)
-    {
-         sf::FloatRect mainPugBox = vecDogSprites.at(0).getGlobalBounds();
-         sf::FloatRect animalBox = vecDogSprites.at(i).getGlobalBounds();
-         animalBox.top += 15;
-         animalBox.left += 15;
-         animalBox.width -= 30;
-         animalBox.height -= 30;
-        
-         if(mainPugBox.intersects(animalBox))
-            return true;
-    }
-    return false;
-}
-
 Pug::Pug()
 {        
     srand(time(0));
 
     //Set pug texture
-    pugTexture.loadFromFile("pug.png");
+    pugTexture.loadFromFile("Textures/pug.png");
     
     //Set pug texture as the first element in vecDogSprites;
     sf::Sprite pugSprite;
@@ -145,5 +127,23 @@ void Pug::addDog()
 
     vecDogSprites.push_back(pugSprite);
 }
+
+bool Pug::hitBody()
+{
+    for(unsigned i = 1; i < vecDogSprites.size(); i++)
+    {
+         sf::FloatRect mainPugBox = vecDogSprites.at(0).getGlobalBounds();
+         sf::FloatRect animalBox = vecDogSprites.at(i).getGlobalBounds();
+         animalBox.top += 15;
+         animalBox.left += 15;
+         animalBox.width -= 30;
+         animalBox.height -= 30;
+        
+         if(mainPugBox.intersects(animalBox))
+            return true;
+    }
+    return false;
+}
+
 
 #endif
