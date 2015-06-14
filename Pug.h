@@ -1,10 +1,7 @@
 #ifndef PUG_H
 #define PUG_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-
+#include <sstream>
 #include <vector>
 
 #include "Animal.h"
@@ -12,21 +9,31 @@
 class Pug
 {
     private:
+        //Private variables
         sf::Texture pugTexture;
         sf::Clock clock;
         std::vector<sf::Sprite> vecDogSprites;
         unsigned direction;
         unsigned movementCounter;
-        
+
     public:
+        //Constructor
         Pug();
+
+        //Methods
         void setDirection(int i);
         void setMovement();
-        void draw(sf::RenderWindow& w);
+        void addDog();
+        void reset();
+        void draw(sf::RenderWindow& w);        
         bool eatAnimal(Animal &a);
         bool hitBody();
-        void addDog();
+        bool hitWall();
+
+        //Gets
+        unsigned getSize();
 };
+
 Pug::Pug()
 {        
     srand(time(0));
@@ -34,12 +41,11 @@ Pug::Pug()
     //Set pug texture
     pugTexture.loadFromFile("Textures/pug.png");
     
-    //Set pug texture as the first element in vecDogSprites;
+    //Initialize first pug
     sf::Sprite pugSprite;
     pugSprite.setTexture(pugTexture);
     pugSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     pugSprite.move(400, 300);
-
     vecDogSprites.push_back(pugSprite);
 
     //Randomize direction
@@ -53,16 +59,8 @@ void Pug::setDirection(int i)
         return;
     else if((direction == 1 && i == 2) || direction == 2 && i == 1)
         return;
-    
+        
     direction = i;
-}
-
-void Pug::draw(sf::RenderWindow& w)
-{
-    for(unsigned i = 0; i < vecDogSprites.size(); i++)
-    {
-        w.draw(vecDogSprites.at(i));
-    }
 }
 
 void Pug::setMovement()
@@ -78,16 +76,16 @@ void Pug::setMovement()
         sf::Vector2<float> prevPos = vecDogSprites.at(i - 1).getPosition();
         vecDogSprites.at(i).setPosition(prevPos);
         
-        //set animation for trailing animals
+        //Set animation for trailing animals
         vecDogSprites.at(i).setTextureRect(vecDogSprites.at(i - 1).getTextureRect());
     }
 
-    //set animation for the main pug
+    //Set animation for the main pug
     movementCounter += 32;
     if(movementCounter > 64)
         movementCounter = 0;
 
-    //set movement for the main pug
+    //Set movement for the main pug
     if(direction == 0)
         vecDogSprites.at(0).move(0, 20);
     else if(direction == 1)
@@ -96,8 +94,35 @@ void Pug::setMovement()
         vecDogSprites.at(0).move(20, 0);
     else if(direction == 3)
         vecDogSprites.at(0).move(0, -20);
-
+    
     vecDogSprites.at(0).setTextureRect(sf::IntRect(movementCounter, direction  * 32, 32, 32));
+}
+
+void Pug::addDog()
+{
+    sf::Sprite pugSprite;
+    pugSprite.setTexture(pugTexture);
+    pugSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    pugSprite.setScale(0.90, 0.90);
+
+    vecDogSprites.push_back(pugSprite);
+}
+
+void Pug::reset()
+{
+    while(vecDogSprites.size() > 1)
+        vecDogSprites.pop_back();
+
+    vecDogSprites.at(0).setPosition(400, 300);
+    direction = rand() % 4;
+}
+
+void Pug::draw(sf::RenderWindow& w)
+{
+    for(unsigned i = 0; i < vecDogSprites.size(); i++)
+    {
+       w.draw(vecDogSprites.at(i));
+    }
 }
 
 bool Pug::eatAnimal(Animal &a)
@@ -117,17 +142,6 @@ bool Pug::eatAnimal(Animal &a)
     return false;
 }
 
-//just adds another dog into the queue
-void Pug::addDog()
-{
-    sf::Sprite pugSprite;
-    pugSprite.setTexture(pugTexture);
-    pugSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-    pugSprite.setScale(0.90, 0.90);
-
-    vecDogSprites.push_back(pugSprite);
-}
-
 bool Pug::hitBody()
 {
     for(unsigned i = 1; i < vecDogSprites.size(); i++)
@@ -145,5 +159,24 @@ bool Pug::hitBody()
     return false;
 }
 
+bool Pug::hitWall()
+{
+    sf::Vector2<float> mainPugCoord = vecDogSprites.at(0).getPosition();
+
+    //bottom and right edges
+    if(mainPugCoord.x > 780 || mainPugCoord.y > 585)
+        return true;
+    
+    //top and left edges
+    if(mainPugCoord.x < 0 || mainPugCoord.y < 0)
+        return true;
+
+    return false;
+}
+
+unsigned Pug::getSize()
+{
+    return vecDogSprites.size();
+}
 
 #endif

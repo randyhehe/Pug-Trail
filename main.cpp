@@ -1,62 +1,128 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+
+#include <fstream>
+#include <sstream>
 
 #include "Pug.h"
 #include "Animal.h"
 #include "Background.h"
+#include "Menu.h"
+#include "Sounds.h"
+#include "Game.h"
 
 int main()
 {
     //Default window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Animal Trail");
-    
-    Pug mainPug;
-    Animal mainAnimal;
-    Background mainBackground;
+    sf::RenderWindow window(sf::VideoMode(800, 612), "Animal Trail", sf::Style::Titlebar | sf::Style::Close);
 
+    //Main variables
+    Game    mainGame;
+    Menu    mainMenu;
+    Sounds  mainSounds;
+
+    //menuCounter == 1 -> Main Menu
+    //menuCounter == 2 -> Game Menu
+    unsigned menuCounter = 1;
+    
     //Game loop
     while(window.isOpen())
-    {
-        mainPug.setMovement();
-        
-        //End the game
-        if(mainPug.hitBody())
+    {  
+        //Menu screen
+        while(menuCounter == 1)
         {
-            
-        }
+            //Menu updating
+            mainMenu.updateHighScore();
+            mainMenu.updateRecentScore();
 
-        while(mainPug.eatAnimal(mainAnimal))
-        {
-            mainAnimal.setRandomLocation();
-            mainPug.addDog();
-        }
-        
-        //Event handling
-        sf::Event event;
-        while(window.pollEvent(event))
-        {
-            //Event close
-            if(event.type == sf::Event::Closed)
+            //Event handling
+            sf::Event event;
+            while(window.pollEvent(event))
             {
-                window.close();
+                if(event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+                {
+                    menuCounter = 0;
+                    break;
+                }
             }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                mainPug.setDirection(0);
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                mainPug.setDirection(1);
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                mainPug.setDirection(2);
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                mainPug.setDirection(3);
+            window.clear(sf::Color::White);
+            
+            mainMenu.draw(window);
+
+            window.display();
+        }
+        
+        while(menuCounter == 0)
+        {
+            //Set score
+            mainGame.updateScore();
+
+            //Set movement
+            mainGame.updateMovement();
+        
+            //End the game
+            if(mainGame.loseConditions() == true)
+            {
+                //Set screen back to menu
+                menuCounter = 1;
+
+                //Update high Ssore
+                if(mainGame.returnSize() > mainMenu.returnHighScore())
+                {
+                    mainMenu.changeHighScore(mainGame.returnSize());
+                }
+
+                //Update recent score
+                mainMenu.changeRecentScore(mainGame.returnSize());
+
+                //Reset game properties
+                mainGame.reset();
+                
+                //Play dog whine
+                mainSounds.playWhine();
+            }
+        
+            //Consume
+            while(mainGame.eatConditions() == true)
+            {
+                mainGame.onEat();
+
+                //Pug woof sound
+                mainSounds.playWoof();
+            }
+             
+            //Event handling
+            sf::Event event;
+            while(window.pollEvent(event))
+            {
+                //Event close
+                if(event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                    mainGame.updateDirection(0);
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                    mainGame.updateDirection(1);
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                    mainGame.updateDirection(2);
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                    mainGame.updateDirection(3);
         }
 
-        window.clear();
-        
-        mainBackground.draw(window);
-        mainAnimal.draw(window);
-        mainPug.draw(window);
+            window.clear();
+ 
+            mainGame.draw(window);
+            //window.draw(scoreText);
 
-        window.display();
+            window.display();
+        }
     }
 }
