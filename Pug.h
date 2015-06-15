@@ -55,9 +55,9 @@ Pug::Pug()
 void Pug::setDirection(int i)
 {
     //Disables backwards direction
-    if((direction == 0 && i == 3) || direction == 3 && i == 0)
+    if((direction == 0 && i == 3) || (direction == 3 && i == 0))
         return;
-    else if((direction == 1 && i == 2) || direction == 2 && i == 1)
+    else if((direction == 1 && i == 2) || (direction == 2 && i == 1))
         return;
         
     direction = i;
@@ -104,6 +104,7 @@ void Pug::addDog()
     pugSprite.setTexture(pugTexture);
     pugSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     pugSprite.setScale(0.90, 0.90);
+    pugSprite.setPosition(800, 800);
 
     vecDogSprites.push_back(pugSprite);
 }

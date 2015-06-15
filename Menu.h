@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <queue>
 #include <fstream>
 #include <sstream>
 
@@ -9,17 +10,34 @@ class Menu
 	private:
 		//Fonts and Texts
 		sf::Font ubuntu;
-		sf::Text title;
-		sf::Text play;
-		sf::Text credits;
 		sf::Text highScore;
 		sf::Text recentScore;
 		unsigned recentScoreVal;
 		unsigned highScoreVal;
 
-		//Graphics
+		//Textures
+		sf::Texture backgroundTexture;
+		sf::Texture titleTexture;
+		sf::Texture playTexture;
+		sf::Texture creditsTexture;
 		sf::Texture pugTexture;
-		sf::Sprite 	pugSprite;
+		sf::Texture selectionTexture;
+
+		//Sprites
+		sf::Sprite backgroundSprite;
+		sf::Sprite titleSprite;
+		sf::Sprite playSprite;
+		sf::Sprite creditsSprite;
+		sf::Sprite pugSprite;
+		sf::Sprite selectionSprite;
+
+		//Counter
+		unsigned counter;
+		unsigned animationCounter;
+		bool secretCounter;
+
+		//Clock
+		sf::Clock clock;
 
 	public:
 		//Constructor
@@ -28,42 +46,54 @@ class Menu
 		//Methods
 		void updateHighScore();
 		void updateRecentScore();
+		void updateSelectionLocation();
+		void updateSelectionAnimation();
 		void changeHighScore(unsigned i);
 		void changeRecentScore(unsigned i);
+		void changeCounter(int i);
 		void draw(sf::RenderWindow& w);
 		
 		//Gets
 		unsigned returnHighScore();
+		unsigned returnCounter();
 
 };
 
 Menu::Menu()
-:recentScoreVal(0)
+:recentScoreVal(0), counter(0), animationCounter(0)
 {
 	//Load ubuntu font
 	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
 
-	//Load title text
-	title.setFont(ubuntu);
-    title.setString("Pug Trail");
-    title.setCharacterSize(48);
-    title.setColor(sf::Color::Black);
-    title.setStyle(sf::Text::Bold);
-    title.setPosition(300, 350);
+	//Load title texture and sprite
+	titleTexture.loadFromFile("Textures/pug_trail.png");
+	titleSprite.setTexture(titleTexture);
+	titleSprite.setPosition(250, 330);
 
-    //Load play text
-    play.setFont(ubuntu);
-    play.setString("Press P to Play");
-    play.setCharacterSize(24);
-    play.setColor(sf::Color::Black);
-    play.setPosition(303, 405);
+	//Load background texture and sprite
+	backgroundTexture.loadFromFile("Textures/grass_menu.jpg");
+	backgroundSprite.setTexture(backgroundTexture);
 
-    //Load credit text
-    credits.setFont(ubuntu);
-    credits.setString("Press C for Credits");
-    credits.setCharacterSize(24);
-    credits.setColor(sf::Color::Black);
-    credits.setPosition(303, 428);
+	//Load play texture and sprite
+	playTexture.loadFromFile("Textures/play.png");
+	playSprite.setTexture(playTexture);
+	playSprite.setPosition(303, 405);
+
+	//Load credits texture and sprite
+	creditsTexture.loadFromFile("Textures/credits.png");
+	creditsSprite.setTexture(creditsTexture);
+	creditsSprite.setPosition(303, 440);
+
+	//Load pug texture and sprite
+    pugTexture.loadFromFile("Textures/pugScreen.png");
+    pugSprite.setTexture(pugTexture);
+    pugSprite.setPosition(170, 0);
+
+    //Load selection texture and sprite
+    selectionTexture.loadFromFile("Textures/pug.png");
+    selectionSprite.setTexture(selectionTexture);
+    selectionSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    selectionSprite.setPosition(280, 408);
 
     //Load high score text
     highScore.setFont(ubuntu);
@@ -85,12 +115,8 @@ Menu::Menu()
     iSS >> highScoreVal;
     iSS.close();
 
-    //Load pug texture
-    pugTexture.loadFromFile("Textures/pugScreen.png");
-    
-    //Load pug sprite
-    pugSprite.setTexture(pugTexture);
-    pugSprite.setPosition(170, 0);
+    //Initialize clock
+    srand(time(0));
 }
 
 void Menu::updateHighScore()
@@ -111,6 +137,35 @@ void Menu::updateRecentScore()
 	recentScore.setString("Latest Capture: " + recentScoreString);
 }
 
+void Menu::updateSelectionLocation()
+{
+	if(counter == 0)
+	{
+		selectionSprite.setPosition(280, 410);
+	}
+	else if(counter == 1)
+	{
+		selectionSprite.setPosition(280, 445);
+	}
+}
+
+void Menu::updateSelectionAnimation()
+{
+	//Normalize animation speed
+    if(clock.getElapsedTime().asSeconds() > 0.10)
+    {
+        clock.restart();
+
+        //Sprite movement
+        animationCounter += 32;
+        if(animationCounter > 64)
+            animationCounter = 0;
+        
+        selectionSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
+    }
+
+}
+
 void Menu::changeHighScore(unsigned i)
 {
 	std::ofstream oSS;
@@ -127,20 +182,35 @@ void Menu::changeRecentScore(unsigned i)
 	recentScoreVal = i;
 }
 
+void Menu::changeCounter(int i)
+{
+	if(i < 0 && counter > 0)
+		counter--;
+	else if(i > 0 && counter < 1)
+		counter++;
+}
+
 void Menu::draw(sf::RenderWindow& w)
 {
 	//Draw all properties
-	w.draw(title);
-	w.draw(play);
-	w.draw(credits);
+	w.draw(backgroundSprite);
+	w.draw(playSprite);
+	w.draw(creditsSprite);
 	w.draw(highScore);
 	w.draw(recentScore);
 	w.draw(pugSprite);
+	w.draw(titleSprite);
+	w.draw(selectionSprite);
 }
 
 unsigned Menu::returnHighScore()
 {
 	return highScoreVal;
+}
+
+unsigned Menu::returnCounter()
+{
+	return counter;
 }
 
 #endif

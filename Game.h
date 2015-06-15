@@ -80,10 +80,10 @@ void Game::updateDirection(unsigned i)
 void Game::draw(sf::RenderWindow& w)
 {
 	background.draw(w);
+	w.draw(score);
     animal.draw(w);
     pug.draw(w);
 
-    w.draw(score);
 }
 
 bool Game::eatConditions()
