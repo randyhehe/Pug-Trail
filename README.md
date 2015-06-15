@@ -1,3 +1,4 @@
 # Snake
 C++ SFML Snake Game
-(Currently Unfinished)
+
+Finished but currently pushing out more updates.
