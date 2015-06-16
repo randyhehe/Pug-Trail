@@ -31,8 +31,8 @@ class Menu
 		sf::Sprite pugSprite;
 		sf::Sprite selectionSprite;
 
-		//Counter
-		unsigned counter;
+		//Counters
+		unsigned selectionCounter;
 		unsigned animationCounter;
 		bool secretCounter;
 
@@ -50,17 +50,17 @@ class Menu
 		void updateSelectionAnimation();
 		void changeHighScore(unsigned i);
 		void changeRecentScore(unsigned i);
-		void changeCounter(int i);
+		void changeSelectionCounter(int i);
 		void draw(sf::RenderWindow& w);
-		
+
 		//Gets
 		unsigned returnHighScore();
-		unsigned returnCounter();
+		unsigned returnSelectionCounter();
 
 };
 
 Menu::Menu()
-:recentScoreVal(0), counter(0), animationCounter(0)
+:recentScoreVal(0), selectionCounter(0), animationCounter(0)
 {
 	//Load ubuntu font
 	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
@@ -139,11 +139,11 @@ void Menu::updateRecentScore()
 
 void Menu::updateSelectionLocation()
 {
-	if(counter == 0)
+	if(selectionCounter == 0)
 	{
 		selectionSprite.setPosition(280, 410);
 	}
-	else if(counter == 1)
+	else if(selectionCounter == 1)
 	{
 		selectionSprite.setPosition(280, 445);
 	}
@@ -160,7 +160,7 @@ void Menu::updateSelectionAnimation()
         animationCounter += 32;
         if(animationCounter > 64)
             animationCounter = 0;
-        
+
         selectionSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
     }
 
@@ -172,7 +172,7 @@ void Menu::changeHighScore(unsigned i)
     oSS.open("scores.txt");
     oSS << i;
     oSS.close();
-    
+
     //Update High Score Variable
     highScoreVal = i;
 }
@@ -182,12 +182,12 @@ void Menu::changeRecentScore(unsigned i)
 	recentScoreVal = i;
 }
 
-void Menu::changeCounter(int i)
+void Menu::changeSelectionCounter(int i)
 {
-	if(i < 0 && counter > 0)
-		counter--;
-	else if(i > 0 && counter < 1)
-		counter++;
+	if(i < 0 && selectionCounter > 0)
+		selectionCounter--;
+	else if(i > 0 && selectionCounter < 1)
+		selectionCounter++;
 }
 
 void Menu::draw(sf::RenderWindow& w)
@@ -208,9 +208,9 @@ unsigned Menu::returnHighScore()
 	return highScoreVal;
 }
 
-unsigned Menu::returnCounter()
+unsigned Menu::returnSelectionCounter()
 {
-	return counter;
+	return selectionCounter;
 }
 
 #endif

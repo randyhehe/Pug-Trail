@@ -25,7 +25,7 @@ class Pug
         void setMovement();
         void addDog();
         void reset();
-        void draw(sf::RenderWindow& w);        
+        void draw(sf::RenderWindow& w);
         bool eatAnimal(Animal &a);
         bool hitBody();
         bool hitWall();
@@ -35,12 +35,12 @@ class Pug
 };
 
 Pug::Pug()
-{        
+{
     srand(time(0));
 
     //Set pug texture
     pugTexture.loadFromFile("Textures/pug.png");
-    
+
     //Initialize first pug
     sf::Sprite pugSprite;
     pugSprite.setTexture(pugTexture);
@@ -59,7 +59,7 @@ void Pug::setDirection(int i)
         return;
     else if((direction == 1 && i == 2) || (direction == 2 && i == 1))
         return;
-        
+
     direction = i;
 }
 
@@ -75,7 +75,7 @@ void Pug::setMovement()
     {
         sf::Vector2<float> prevPos = vecDogSprites.at(i - 1).getPosition();
         vecDogSprites.at(i).setPosition(prevPos);
-        
+
         //Set animation for trailing animals
         vecDogSprites.at(i).setTextureRect(vecDogSprites.at(i - 1).getTextureRect());
     }
@@ -94,7 +94,7 @@ void Pug::setMovement()
         vecDogSprites.at(0).move(20, 0);
     else if(direction == 3)
         vecDogSprites.at(0).move(0, -20);
-    
+
     vecDogSprites.at(0).setTextureRect(sf::IntRect(movementCounter, direction  * 32, 32, 32));
 }
 
@@ -129,8 +129,8 @@ void Pug::draw(sf::RenderWindow& w)
 bool Pug::eatAnimal(Animal &a)
 {
     sf::FloatRect mainPugBox = vecDogSprites.at(0).getGlobalBounds();
-    sf::FloatRect animalBox = a.getSprite().getGlobalBounds();
-    
+    sf::FloatRect animalBox = a.returnAnimalSprite().getGlobalBounds();
+
     //adjust animalBox properties to properly set the intersection
     animalBox.top += 15;
     animalBox.left += 15;
@@ -139,7 +139,7 @@ bool Pug::eatAnimal(Animal &a)
 
     if(mainPugBox.intersects(animalBox))
         return true;
-    
+
     return false;
 }
 
@@ -153,7 +153,7 @@ bool Pug::hitBody()
          animalBox.left += 15;
          animalBox.width -= 30;
          animalBox.height -= 30;
-        
+
          if(mainPugBox.intersects(animalBox))
             return true;
     }
@@ -167,7 +167,7 @@ bool Pug::hitWall()
     //bottom and right edges
     if(mainPugCoord.x > 780 || mainPugCoord.y > 585)
         return true;
-    
+
     //top and left edges
     if(mainPugCoord.x < 0 || mainPugCoord.y < 0)
         return true;

@@ -63,7 +63,7 @@ void Game::updateMovement()
 
 void Game::reset()
 {
-	pug.reset();	
+	pug.reset();
 }
 
 void Game::onEat()

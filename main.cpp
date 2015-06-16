@@ -33,11 +33,12 @@ int main()
 
     //Game loop
     while(window.isOpen())
-    {  
+    {
 
         //Menu screen
         while(menuCounter == 1)
         {
+            //Continue music if it stops
             mainSounds.continueMusic();
 
             //Menu updating
@@ -48,15 +49,15 @@ int main()
 
             if(mainSounds.checkDefaultCondition() == true)
             {
-                mainSounds.clearKey();  
-                mainSounds.stop();
+                mainSounds.clearKey();
+                mainSounds.stopMusic();
                 mainSounds.playDefault();
             }
 
-            if(mainSounds.checkSecretCondition() == true)
+            else if(mainSounds.checkSecretCondition() == true)
             {
                 mainSounds.clearKey();
-                mainSounds.stop();
+                mainSounds.stopMusic();
                 mainSounds.playSecret();
             }
 
@@ -65,80 +66,81 @@ int main()
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
-                {
                     window.close();
-                }
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnCounter() == 0)
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnSelectionCounter() == 0)
                 {
                     menuCounter = 0;
                     break;
                 }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnCounter() == 1)
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnSelectionCounter() == 1)
                 {
                     mainCredits.reset();
                     menuCounter = 2;
+                    break;
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::B))
                     mainSounds.updateKey('b');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && sf::Event::KeyReleased)
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I))
                     mainSounds.updateKey('i');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
                     mainSounds.updateKey('g');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
                     mainSounds.updateKey('a');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
                     mainSounds.updateKey('n');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
                     mainSounds.updateKey('d');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
                     mainSounds.updateKey('e');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
                     mainSounds.updateKey('f');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::U))
                     mainSounds.updateKey('u');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
                     mainSounds.updateKey('l');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
                     mainSounds.updateKey('t');
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     mainSounds.clearKey();
-
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                    mainMenu.changeCounter(1);
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                    mainMenu.changeSelectionCounter(1);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                    mainMenu.changeCounter(-1);
+                    mainMenu.changeSelectionCounter(-1);
             }
-            window.clear(sf::Color::White);
-            
-            mainMenu.draw(window);
 
+            //window display
+            window.clear(sf::Color::White);
+            mainMenu.draw(window);
             window.display();
         }
-        
+
         //Credit Screen
         while(menuCounter == 2)
         {
+            //Continue music if it stops
             mainSounds.continueMusic();
 
-            mainCredits.updateCounter();
+            //Credits updating
+            mainCredits.updateTextCounter();
             mainCredits.updateText();
             mainCredits.updatePugMovement();
             mainCredits.updateExitClock();
 
+            //Event loop
             sf::Event event;
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
-                {
                     window.close();
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainCredits.getExitClockTime() > 11.50)
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainCredits.returnExitClockTime() > 11.50)
                 {
                     mainCredits.reset();
                     menuCounter = 1;
                 }
             }
+
+            //window display
             window.clear(sf::Color::White);
             mainCredits.draw(window);
             window.display();
@@ -147,14 +149,13 @@ int main()
         //Game Screen
         while(menuCounter == 0)
         {
+            //Continue music if it stops
             mainSounds.continueMusic();
-            
-            //Set score
-            mainGame.updateScore();
 
-            //Set movement
+            //Game updating
+            mainGame.updateScore();
             mainGame.updateMovement();
-        
+
             //End the game
             if(mainGame.loseConditions() == true)
             {
@@ -172,29 +173,26 @@ int main()
 
                 //Reset game properties
                 mainGame.reset();
-                
+
                 //Play dog whine
                 mainSounds.playWhine();
             }
-        
+
             //Consume
-            while(mainGame.eatConditions() == true)
+            if(mainGame.eatConditions() == true)
             {
                 mainGame.onEat();
 
                 //Pug woof sound
                 mainSounds.playWoof();
             }
-             
+
             //Event handling
             sf::Event event;
             while(window.pollEvent(event))
             {
-                //Event close
                 if(event.type == sf::Event::Closed)
-                {
                     window.close();
-                }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                     mainGame.updateDirection(0);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -205,11 +203,9 @@ int main()
                     mainGame.updateDirection(3);
         }
 
+            //Window display
             window.clear();
- 
             mainGame.draw(window);
-            //window.draw(scoreText);
-
             window.display();
         }
     }

@@ -1,5 +1,5 @@
 #ifndef SOUNDS_H
-#define SOUNDS_H	
+#define SOUNDS_H
 
 #include <cstdlib>
 #include <ctime>
@@ -11,14 +11,16 @@ class Sounds
 		//Private variables
 		sf::Clock clock;
 		sf::Music backgroundMusic;
-		std::vector<std::string> secretMusic;
 		sf::SoundBuffer dogWoof;
 		sf::SoundBuffer dogWhine;
 		sf::Sound sound;
 
-		std::string key;
-
+		//Counters
 		unsigned backgroundCounter;
+
+		//Secret variables
+		std::vector<std::string> secretMusic;
+		std::string key;
 
 	public:
 		//Constructor
@@ -28,14 +30,14 @@ class Sounds
 		void playWoof();
 		void playWhine();
 		void playDefault();
-		void stop();
 		void playSecret();
+		void continueMusic();
+		void stopMusic();
 		void updateKey(char x);
 		void clearKey();
-		void continueMusic();
 		bool checkSecretCondition();
 		bool checkDefaultCondition();
-		
+
 };
 
 Sounds::Sounds()
@@ -51,6 +53,7 @@ Sounds::Sounds()
     dogWoof.loadFromFile("Sounds/pug_woof.wav");
     dogWhine.loadFromFile("Sounds/dog_whine.ogg");
 
+	//Set secretMusic strings
     secretMusic.push_back("Sounds/bad_boy.ogg");
     secretMusic.push_back("Sounds/bang_bang_bang.ogg");
     secretMusic.push_back("Sounds/black.ogg");
@@ -83,11 +86,6 @@ void Sounds::playDefault()
 	backgroundCounter = 0;
 }
 
-void Sounds::stop()
-{
-	backgroundMusic.stop();
-}
-
 void Sounds::playSecret()
 {
 	std::string randomSecret = secretMusic.at(rand() % 10);
@@ -95,6 +93,22 @@ void Sounds::playSecret()
 	backgroundMusic.play();
 	backgroundMusic.setVolume(50);
 	backgroundCounter = 1;
+}
+
+void Sounds::continueMusic()
+{
+	if(backgroundMusic.getStatus() == sf::SoundSource::Stopped)
+	{
+		if(backgroundCounter == 0)
+			playDefault();
+		else if(backgroundCounter == 1)
+			playSecret();
+	}
+}
+
+void Sounds::stopMusic()
+{
+	backgroundMusic.stop();
 }
 
 void Sounds::updateKey(char x)
@@ -119,17 +133,6 @@ bool Sounds::checkSecretCondition()
 	if(key == "bbiiggbbaanngg")
 		return true;
 	return false;
-}
-
-void Sounds::continueMusic()
-{
-	if(backgroundMusic.getStatus() == sf::SoundSource::Stopped)
-	{
-		if(backgroundCounter == 0)
-			playDefault();
-		else if(backgroundCounter == 1)
-			playSecret();
-	}
 }
 
 #endif

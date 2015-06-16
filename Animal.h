@@ -11,6 +11,8 @@ class Animal
         sf::Texture animalTexture;
         sf::Sprite animalSprite;
         sf::Clock clock;
+
+        //Counters
         unsigned animationCounter;
 
     public:
@@ -22,7 +24,7 @@ class Animal
         void draw(sf::RenderWindow& w);
 
         //Gets
-        sf::Sprite getSprite();
+        sf::Sprite returnAnimalSprite();
 };
 
 Animal::Animal()
@@ -55,24 +57,23 @@ void Animal::setRandomLocation()
 
 void Animal::draw(sf::RenderWindow& w)
 {
-    //Normalize animation speed
-    if(clock.getElapsedTime().asSeconds() > 0.10)
-    {
-        clock.restart();
-
-        //Sprite movement
-        animationCounter += 32;
-        if(animationCounter > 64)
-            animationCounter = 0;
-
-        animalSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
-    }
-
     //Draw animation
     w.draw(animalSprite);
+
+    //Normalize animation speed
+    if(clock.getElapsedTime().asSeconds() < 0.10)
+        return;
+    clock.restart();
+
+    //Sprite movement
+    animationCounter += 32;
+    if(animationCounter > 64)
+        animationCounter = 0;
+
+    animalSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
 }
 
-sf::Sprite Animal::getSprite()
+sf::Sprite Animal::returnAnimalSprite()
 {
     return animalSprite;
 }

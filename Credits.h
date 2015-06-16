@@ -8,6 +8,7 @@
 class Credits
 {
 	private:
+		//Private variables
 		Background background;
 		sf::Clock stringClock;
 		sf::Clock spriteClock;
@@ -19,27 +20,34 @@ class Credits
 		std::vector<std::string> vecStrings;
 		std::vector<sf::Text> vecTexts;
 		std::vector<sf::Sprite> vecSprites;
-		unsigned counter;
+
+		//Counters
+		unsigned textCounter;
 		unsigned animationCounter;
 
 	public:
+		//Constructor
 		Credits();
-		void updateCounter();
+
+		//Methods
+		void updateTextCounter();
 		void updateText();
 		void updatePugMovement();
 		void updateExitClock();
 		void reset();
 		void draw(sf::RenderWindow& w);
-		float getExitClockTime();
+
+		//Gets
+		float returnExitClockTime();
 };
 
 Credits::Credits()
-:background(Background()), counter(0), animationCounter(0)
+:background(Background()), textCounter(0), animationCounter(0)
 {
 	//Load ubuntu
 	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
 
-	//Load all texts
+	//Load all texts and set their positions
 	sf::Text tempText;
 	tempText.setFont(ubuntu);
 	tempText.setCharacterSize(15);
@@ -52,15 +60,15 @@ Credits::Credits()
 	tempText.setPosition(50, 130);
 	vecTexts.push_back(tempText);
 
-	//Load firstString
+	//Load all string contents
 	vecStrings.push_back("This program was made with SFML 2.3 and coded with C++.");
 	vecStrings.push_back("Open source code for this project can be found at \"github.com/randyhehe\".");
 	vecStrings.push_back("Dedicated for Nina Dionisio and for our first year anniversary.");
 
 	//Load pugTexture
 	pugTexture.loadFromFile("Textures/pug.png");
-	
-	//Set up all pug sprites
+
+	//Set up all pug sprites and their positions
 	sf::Sprite tempSprite;
 	tempSprite.setTexture(pugTexture);
 	tempSprite.setTextureRect(sf::IntRect(0, 64, 32, 32));
@@ -73,55 +81,57 @@ Credits::Credits()
 
 	//Load exitTexture
 	exitTexture.loadFromFile("Textures/exitTexture.png");
-
-	//Load exitSprite
 }
 
 void Credits::updatePugMovement()
 {
-	if(spriteClock.getElapsedTime().asSeconds() > 0.12 && exitClock.getElapsedTime().asSeconds() < 11.50)
+	//Normalize animation speed
+	if(spriteClock.getElapsedTime().asSeconds() < 0.12 || exitClock.getElapsedTime().asSeconds() > 11.50)
+		return;
+	spriteClock.restart();
+
+	//update animation counter
+	animationCounter += 32;
+	if(animationCounter > 64)
+		animationCounter = 0;
+
+	//update all sprites distance and animation
+	for(unsigned i = 0; i < vecSprites.size(); i++)
 	{
-		spriteClock.restart();
-		
-		animationCounter += 32;
-		if(animationCounter > 64)
-			animationCounter = 0;
-		
-		for(unsigned i = 0; i < vecSprites.size(); i++)
-		{
-			vecSprites.at(i).setTextureRect(sf::IntRect(animationCounter, 64, 32, 32));
-			vecSprites.at(i).move(9, 0);
-		}
+		vecSprites.at(i).setTextureRect(sf::IntRect(animationCounter, 64, 32, 32));
+		vecSprites.at(i).move(9, 0);
 	}
 }
 
-void Credits::updateCounter()
+void Credits::updateTextCounter()
 {
-	if(stringClock.getElapsedTime().asSeconds() > 0.10)
-    {
-        stringClock.restart();
-        counter++;
-    }
+	if(stringClock.getElapsedTime().asSeconds() < 0.10)
+		return;
+	stringClock.restart();
+
+	textCounter++;
 }
 
 void Credits::updateText()
 {
 	for(unsigned i = 0; i < vecTexts.size(); i++)
 	{
-		vecTexts.at(i).setString(vecStrings.at(i).substr(0, counter));
+		vecTexts.at(i).setString(vecStrings.at(i).substr(0, textCounter));
 	}
 }
 
 void Credits::updateExitClock()
 {
+	//Set the time when exit option is available
 	if(exitClock.getElapsedTime().asSeconds() < 11.50 || spriteClock.getElapsedTime().asSeconds() < 0.12)
 		return;
-
 	spriteClock.restart();
 
+	//Set the position of two previous sprites to be next to the text
 	vecSprites.at(0).setPosition(130, 300);
 	vecSprites.at(1).setPosition(570, 300);
 
+	//Normalize animation speed for the sprites
 	animationCounter += 32;
 		if(animationCounter > 64)
 			animationCounter = 0;
@@ -131,17 +141,22 @@ void Credits::updateExitClock()
 		vecSprites.at(i).setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
 	}
 
+	//Set the exit sprite
 	exitSprite.setTexture(exitTexture);
 	exitSprite.setPosition(150, 300);
 }
 
 void Credits::reset()
 {
+	//Reset all clocks
 	exitClock.restart();
 	stringClock.restart();
 	spriteClock.restart();
 
-	counter = 0;
+	//Reset text counter
+	textCounter = 0;
+
+	//Reset positions of sprites
 	for(unsigned i = 0, j = 60; i < vecSprites.size(); i++, j += 30)
 	{
 		vecSprites.at(i).setPosition(50, j);
@@ -150,11 +165,14 @@ void Credits::reset()
 
 void Credits::draw(sf::RenderWindow& w)
 {
+	//Draw background
 	background.draw(w);
-	
-	if(getExitClockTime() > 11.50)
+
+	//Draw exit
+	if(returnExitClockTime() > 11.50)
 		w.draw(exitSprite);
 
+	//Draw sprites and text
 	for(unsigned i = 0; i < vecSprites.size(); i++)
 	{
 		w.draw(vecSprites.at(i));
@@ -162,7 +180,7 @@ void Credits::draw(sf::RenderWindow& w)
 	}
 }
 
-float Credits::getExitClockTime()
+float Credits::returnExitClockTime()
 {
 	return exitClock.getElapsedTime().asSeconds();
 }
