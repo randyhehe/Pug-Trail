@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #include "Credits.h"
 #include "Pug.h"
@@ -33,14 +34,31 @@ int main()
     //Game loop
     while(window.isOpen())
     {  
+
         //Menu screen
         while(menuCounter == 1)
         {
+            mainSounds.continueMusic();
+
             //Menu updating
             mainMenu.updateHighScore();
             mainMenu.updateRecentScore();
             mainMenu.updateSelectionLocation();
             mainMenu.updateSelectionAnimation();
+
+            if(mainSounds.checkDefaultCondition() == true)
+            {
+                mainSounds.clearKey();  
+                mainSounds.stop();
+                mainSounds.playDefault();
+            }
+
+            if(mainSounds.checkSecretCondition() == true)
+            {
+                mainSounds.clearKey();
+                mainSounds.stop();
+                mainSounds.playSecret();
+            }
 
             //Event handling
             sf::Event event;
@@ -50,6 +68,7 @@ int main()
                 {
                     window.close();
                 }
+
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnCounter() == 0)
                 {
                     menuCounter = 0;
@@ -60,6 +79,31 @@ int main()
                     mainCredits.reset();
                     menuCounter = 2;
                 }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+                    mainSounds.updateKey('b');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && sf::Event::KeyReleased)
+                    mainSounds.updateKey('i');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+                    mainSounds.updateKey('g');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                    mainSounds.updateKey('a');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+                    mainSounds.updateKey('n');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                    mainSounds.updateKey('d');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                    mainSounds.updateKey('e');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+                    mainSounds.updateKey('f');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+                    mainSounds.updateKey('u');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+                    mainSounds.updateKey('l');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+                    mainSounds.updateKey('t');
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                    mainSounds.clearKey();
+
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                     mainMenu.changeCounter(1);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -75,6 +119,8 @@ int main()
         //Credit Screen
         while(menuCounter == 2)
         {
+            mainSounds.continueMusic();
+
             mainCredits.updateCounter();
             mainCredits.updateText();
             mainCredits.updatePugMovement();
@@ -101,6 +147,8 @@ int main()
         //Game Screen
         while(menuCounter == 0)
         {
+            mainSounds.continueMusic();
+            
             //Set score
             mainGame.updateScore();
 
