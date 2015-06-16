@@ -20,7 +20,7 @@ class Animal
         //Methods
         void setRandomLocation();
         void draw(sf::RenderWindow& w);
-        
+
         //Gets
         sf::Sprite getSprite();
 };
@@ -32,12 +32,12 @@ Animal::Animal()
 
     //Initialize texture
     animalTexture.loadFromFile("Textures/pug.png");
-    
+
     //Initialize sprite
     animalSprite.setTexture(animalTexture);
     animalSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     animalSprite.setScale(0.90, 0.90);
-    
+
     //Places animalSprite to a random location
     setRandomLocation();
 }
@@ -64,7 +64,7 @@ void Animal::draw(sf::RenderWindow& w)
         animationCounter += 32;
         if(animationCounter > 64)
             animationCounter = 0;
-        
+
         animalSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
     }
 
