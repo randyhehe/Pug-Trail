@@ -22,6 +22,9 @@ class Menu
 		sf::Texture creditsTexture;
 		sf::Texture pugTexture;
 		sf::Texture selectionTexture;
+		sf::Texture soundTexture;
+		sf::Texture mutedsoundTexture;
+		sf::Texture clickTexture;
 
 		//Sprites
 		sf::Sprite backgroundSprite;
@@ -30,6 +33,8 @@ class Menu
 		sf::Sprite creditsSprite;
 		sf::Sprite pugSprite;
 		sf::Sprite selectionSprite;
+		sf::Sprite soundSprite;
+		sf::Sprite clickSprite;
 
 		//Counters
 		unsigned selectionCounter;
@@ -52,6 +57,10 @@ class Menu
 		void changeRecentScore(unsigned i);
 		void changeSelectionCounter(int i);
 		void draw(sf::RenderWindow& w);
+		void setClickSpritePosition(int x, int y);
+		void resetClickSpriteLocation();
+		bool clicksoundCollison();
+		void switchSoundIcon(bool b);
 
 		//Gets
 		unsigned returnHighScore();
@@ -94,6 +103,19 @@ Menu::Menu()
     selectionSprite.setTexture(selectionTexture);
     selectionSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     selectionSprite.setPosition(280, 408);
+
+	//Load sound texture and sprite
+	soundTexture.loadFromFile("Textures/sound.png");
+	soundSprite.setTexture(soundTexture);
+	soundSprite.setPosition(740, 550);
+
+	//Load muted sound texture
+	mutedsoundTexture.loadFromFile("Textures/soundmute.png");
+
+	//Load click texture and sprite
+	clickTexture.loadFromFile("Textures/starcraft.png");
+	clickSprite.setTexture(clickTexture);
+	clickSprite.setTextureRect(sf::IntRect(0, 0, 1, 1));
 
     //Load high score text
     highScore.setFont(ubuntu);
@@ -201,6 +223,41 @@ void Menu::draw(sf::RenderWindow& w)
 	w.draw(pugSprite);
 	w.draw(titleSprite);
 	w.draw(selectionSprite);
+	w.draw(clickSprite);
+	w.draw(soundSprite);
+}
+
+void Menu::setClickSpritePosition(int x, int y)
+{
+	clickSprite.setPosition(x, y);
+}
+
+void Menu::resetClickSpriteLocation()
+{
+	clickSprite.setPosition(0, 0);
+}
+
+void Menu::switchSoundIcon(bool b)
+{
+	if (b == true)
+	{
+		soundSprite.setTexture(soundTexture);
+	}
+	if (b == false)
+	{
+		soundSprite.setTexture(mutedsoundTexture);
+	}
+}
+
+bool Menu::clicksoundCollison()
+{
+	sf::FloatRect soundBox = soundSprite.getGlobalBounds();
+	sf::FloatRect clickBox = clickSprite.getGlobalBounds();
+
+	if(soundBox.intersects(clickBox))
+		return true;
+
+	return false;
 }
 
 unsigned Menu::returnHighScore()

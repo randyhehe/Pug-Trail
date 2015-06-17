@@ -44,6 +44,22 @@ int main()
             mainMenu.updateSelectionLocation();
             mainMenu.updateSelectionAnimation();
 
+            if(mainMenu.clicksoundCollison() == true)
+            {
+                if(mainSounds.isMuted() == false)
+                {
+                    mainMenu.resetClickSpriteLocation();
+                    mainMenu.switchSoundIcon(false);
+                    mainSounds.muteMusic();
+                }
+                else if(mainSounds.isMuted() == true)
+                {
+                    mainMenu.resetClickSpriteLocation();
+                    mainMenu.switchSoundIcon(true);
+                    mainSounds.unmuteMusic();
+                }
+            }
+
             if(mainSounds.checkDefaultCondition() == true)
             {
                 mainSounds.clearKey();
@@ -104,6 +120,11 @@ int main()
                     mainMenu.changeSelectionCounter(1);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                     mainMenu.changeSelectionCounter(-1);
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+                    mainMenu.setClickSpritePosition(localPosition.x, localPosition.y);
+                }
             }
 
             //window display
@@ -172,7 +193,8 @@ int main()
                 mainGame.reset();
 
                 //Play dog whine
-                mainSounds.playWhine();
+                if(mainSounds.isMuted() == false)
+                    mainSounds.playWhine();
             }
 
             //Consume
@@ -181,7 +203,8 @@ int main()
                 mainGame.onEat();
 
                 //Pug woof sound
-                mainSounds.playWoof();
+                if(mainSounds.isMuted() == false)
+                    mainSounds.playWoof();
             }
 
             //Event handling

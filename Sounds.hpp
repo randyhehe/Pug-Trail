@@ -33,10 +33,13 @@ class Sounds
 		void playSecret();
 		void continueMusic();
 		void stopMusic();
+		void muteMusic();
+		void unmuteMusic();
 		void updateKey(char x);
 		void clearKey();
 		bool checkSecretCondition();
 		bool checkDefaultCondition();
+		bool isMuted();
 
 };
 
@@ -111,6 +114,19 @@ void Sounds::stopMusic()
 	backgroundMusic.stop();
 }
 
+void Sounds::muteMusic()
+{
+	backgroundMusic.setVolume(0);
+}
+
+void Sounds::unmuteMusic()
+{
+	if(backgroundCounter == 0)
+		backgroundMusic.setVolume(100);
+	else if(backgroundCounter == 1)
+		backgroundMusic.setVolume(50);
+}
+
 void Sounds::updateKey(char x)
 {
 	key += x;
@@ -132,6 +148,14 @@ bool Sounds::checkSecretCondition()
 {
 	if(key == "bbiiggbbaanngg")
 		return true;
+	return false;
+}
+
+bool Sounds::isMuted()
+{
+	if(backgroundMusic.getVolume() == 0)
+		return true;
+
 	return false;
 }
 
