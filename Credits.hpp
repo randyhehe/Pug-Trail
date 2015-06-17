@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Background.h"
+#include "Background.hpp"
 
 class Credits
 {

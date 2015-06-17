@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 
-#include "Animal.h"
+#include "Animal.hpp"
 
 class Pug
 {

@@ -7,13 +7,10 @@
 #include <sstream>
 #include <iostream>
 
-#include "Credits.h"
-#include "Pug.h"
-#include "Animal.h"
-#include "Background.h"
-#include "Menu.h"
-#include "Sounds.h"
-#include "Game.h"
+#include "Menu.hpp"
+#include "Game.hpp"
+#include "Credits.hpp"
+#include "Sounds.hpp"
 
 int main()
 {

@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Pug.h"
-#include "Animal.h"
-#include "Background.h"
+#include "Pug.hpp"
+#include "Animal.hpp"
+#include "Background.hpp"
 
 class Game
 {
