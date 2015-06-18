@@ -11,6 +11,7 @@
 #include "Game.hpp"
 #include "Credits.hpp"
 #include "Sounds.hpp"
+#include "Message.hpp"
 
 int main()
 {
@@ -22,10 +23,12 @@ int main()
     Menu    mainMenu;
     Sounds  mainSounds;
     Credits mainCredits;
+    Message mainMessage;
 
     //menuCounter == 1 -> Main Menu
     //menuCounter == 0 -> Game Menu
     //menuCounter == 2 -> Credits Menu
+    //menuCounter == 3 -> Message<3
     unsigned menuCounter = 1;
 
     //Game loop
@@ -35,15 +38,16 @@ int main()
         //Menu screen
         while(menuCounter == 1)
         {
-            //Continue music if it stops
+            //Continue music when finished
             mainSounds.continueMusic();
 
-            //Menu updating
+            //Updates
             mainMenu.updateHighScore();
             mainMenu.updateRecentScore();
             mainMenu.updateSelectionLocation();
             mainMenu.updateSelectionAnimation();
 
+            //Music toggle
             if(mainMenu.clicksoundCollison() == true)
             {
                 if(mainSounds.isMuted() == false)
@@ -60,6 +64,7 @@ int main()
                 }
             }
 
+            //Switch to default music
             if(mainSounds.checkDefaultCondition() == true)
             {
                 mainSounds.clearKey();
@@ -67,11 +72,18 @@ int main()
                 mainSounds.playDefault();
             }
 
+            //Switch to secret music
             else if(mainSounds.checkSecretCondition() == true)
             {
                 mainSounds.clearKey();
                 mainSounds.stopMusic();
                 mainSounds.playSecret();
+            }
+
+            if(mainMessage.correctKey() == true)
+            {
+                menuCounter = 3;
+                break;
             }
 
             //Event handling
@@ -114,8 +126,21 @@ int main()
                     mainSounds.updateKey('l');
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
                     mainSounds.updateKey('t');
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+                    mainMessage.updateKey('0');
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+                    mainMessage.updateKey('6');
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+                    mainMessage.updateKey('3');
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+                    mainMessage.updateKey('1');
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+                    mainMessage.updateKey('4');
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                {
                     mainSounds.clearKey();
+                    mainMessage.clearKey();
+                }
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                     mainMenu.changeSelectionCounter(1);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -161,6 +186,22 @@ int main()
             //window display
             window.clear(sf::Color::White);
             mainCredits.draw(window);
+            window.display();
+        }
+
+        //Message Screen
+        while(menuCounter == 3)
+        {
+            sf::Event event;
+            while(window.pollEvent(event))
+            {
+                if(event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            //window display
+            window.clear(sf::Color::White);
+            mainMessage.draw(window);
             window.display();
         }
 
