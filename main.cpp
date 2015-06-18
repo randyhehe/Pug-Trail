@@ -83,6 +83,7 @@ int main()
 
             if(mainMessage.correctKey() == true)
             {
+                mainMessage.clearKey();
                 menuCounter = 3;
                 break;
             }
@@ -198,6 +199,9 @@ int main()
         //Message Screen
         while(menuCounter == 3)
         {
+            mainMessage.updateText();
+            mainMessage.updateTextCounter();
+
             sf::Event event;
             while(window.pollEvent(event))
             {
@@ -205,6 +209,11 @@ int main()
                 {
                     window.close();
                     menuCounter = 4;
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+                {
+                    mainMessage.resetTextCounter();
+                    menuCounter = 1;
                 }
             }
 

@@ -16,7 +16,7 @@ Message::Message()
     vecStrings.push_back("support you every inch of the way. Thank you for that, and I hope I make you feel the");
     vecStrings.push_back("same way. I can't wait to see what unfolds for us in the future. I am very excited for");
     vecStrings.push_back("us and I know that even more amazing things are waiting for us. Happy anniversary!!");
-    vecStrings.push_back("With love, your Pug Prince");
+    vecStrings.push_back("                                                                                  With love, your Pug Prince");
 
     //Set up ubuntu font
     ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
@@ -33,6 +33,8 @@ Message::Message()
 	vecTexts.push_back(tempText);
 	tempText.setPosition(50, 130);
 	vecTexts.push_back(tempText);
+    tempText.setPosition(50, 160);
+    vecTexts.push_back(tempText);
     tempText.setPosition(50, 190);
     vecTexts.push_back(tempText);
     tempText.setPosition(50, 220);
@@ -49,15 +51,33 @@ Message::Message()
     vecTexts.push_back(tempText);
     tempText.setPosition(50, 400);
     vecTexts.push_back(tempText);
-    tempText.setPosition(50, 430);
+    tempText.setPosition(50, 450);
     vecTexts.push_back(tempText);
-    tempText.setPosition(50, 460);
-    vecTexts.push_back(tempText);
+}
+
+void Message::updateTextCounter()
+{
+	if(textClock.getElapsedTime().asSeconds() < 0.10)
+		return;
+	textClock.restart();
+
+	textCounter++;
 }
 
 void Message::updateText()
 {
+    for(unsigned i = 0; i < vecStrings.size(); i++)
+    {
+        if(vecStrings.at(i).substr(0, textCounter) != vecStrings.at(i))
+        {
+            vecTexts.at(i).setString(vecStrings.at(i).substr(0, textCounter + 1));
+        }
+    }
+}
 
+void Message::resetTextCounter()
+{
+    textCounter = 0;
 }
 
 void Message::updateKey(char x)
@@ -73,6 +93,9 @@ void Message::clearKey()
 void Message::draw(sf::RenderWindow& w)
 {
     background.draw(w);
+
+    for(unsigned i = 0; i < vecTexts.size(); i++)
+        w.draw(vecTexts.at(i));
 }
 
 bool Message::correctKey()

@@ -74,9 +74,7 @@ void Credits::updateTextCounter()
 void Credits::updateText()
 {
 	for(unsigned i = 0; i < vecTexts.size(); i++)
-	{
 		vecTexts.at(i).setString(vecStrings.at(i).substr(0, textCounter));
-	}
 }
 
 void Credits::updateExitClock()

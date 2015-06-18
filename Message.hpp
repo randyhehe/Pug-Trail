@@ -19,6 +19,8 @@ class Message
         sf::Font ubuntu;
         std::vector<sf::Text> vecTexts;
         sf::Clock textClock;
+        unsigned textCounter;
+        unsigned lineCounter;
 
 
     public:
@@ -26,6 +28,8 @@ class Message
         void updateKey(char x);
         void clearKey();
         void updateText();
+        void updateTextCounter();
+        void resetTextCounter();
         void draw(sf::RenderWindow& w);
         bool correctKey();
 };
