@@ -3,6 +3,7 @@
 Message::Message()
 :key("")
 {
+    //Set up vecStrings
     vecStrings.push_back("To my love:");
     vecStrings.push_back("Hi my princess! Thank you so much for giving me the chance to be a part of your life.");
     vecStrings.push_back("This past year has been incredible for me and I don't regret it a single bit. I can't");
@@ -16,6 +17,47 @@ Message::Message()
     vecStrings.push_back("same way. I can't wait to see what unfolds for us in the future. I am very excited for");
     vecStrings.push_back("us and I know that even more amazing things are waiting for us. Happy anniversary!!");
     vecStrings.push_back("With love, your Pug Prince");
+
+    //Set up ubuntu font
+    ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
+
+    //Load text properties
+    sf::Text tempText;
+	tempText.setFont(ubuntu);
+	tempText.setCharacterSize(15);
+	tempText.setColor(sf::Color::Black);
+	tempText.setStyle(sf::Text::Bold);
+    tempText.setPosition(50, 70);
+	vecTexts.push_back(tempText);
+	tempText.setPosition(50, 100);
+	vecTexts.push_back(tempText);
+	tempText.setPosition(50, 130);
+	vecTexts.push_back(tempText);
+    tempText.setPosition(50, 190);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 220);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 250);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 280);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 310);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 340);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 370);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 400);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 430);
+    vecTexts.push_back(tempText);
+    tempText.setPosition(50, 460);
+    vecTexts.push_back(tempText);
+}
+
+void Message::updateText()
+{
+
 }
 
 void Message::updateKey(char x)

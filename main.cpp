@@ -28,7 +28,8 @@ int main()
     //menuCounter == 1 -> Main Menu
     //menuCounter == 0 -> Game Menu
     //menuCounter == 2 -> Credits Menu
-    //menuCounter == 3 -> Message<3
+    //menuCounter == 3 -> Message
+    //menuCounter == 4 -> Terminate Program
     unsigned menuCounter = 1;
 
     //Game loop
@@ -91,8 +92,10 @@ int main()
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
+                {
                     window.close();
-
+                    menuCounter = 4;
+                }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainMenu.returnSelectionCounter() == 0)
                 {
                     menuCounter = 0;
@@ -175,7 +178,10 @@ int main()
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
+                {
                     window.close();
+                    menuCounter = 4;
+                }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mainCredits.returnExitClockTime() > 11.50)
                 {
                     mainCredits.reset();
@@ -196,7 +202,10 @@ int main()
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
+                {
                     window.close();
+                    menuCounter = 4;
+                }
             }
 
             //window display
@@ -253,7 +262,10 @@ int main()
             while(window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
+                {
                     window.close();
+                    menuCounter = 4;
+                }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                     mainGame.updateDirection(0);
                 else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -270,4 +282,6 @@ int main()
             window.display();
         }
     }
+
+    return 0;
 }
