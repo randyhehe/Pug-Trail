@@ -125,6 +125,7 @@ Message::Message()
 
 }
 
+//Updates the textCounter based on textClock.
 void Message::updateTextCounter()
 {
 	if(textClock.getElapsedTime().asSeconds() < 0.10)
@@ -134,6 +135,7 @@ void Message::updateTextCounter()
 	textCounter++;
 }
 
+//Updates the text of all lines based on textCounter.
 void Message::updateText()
 {
     for(unsigned i = 0; i < vecStrings.size(); i++)
@@ -145,11 +147,13 @@ void Message::updateText()
     }
 }
 
+//Resets the textCounter.
 void Message::resetTextCounter()
 {
     textCounter = 0;
 }
 
+//Updates the messageAnimations movement and direction.
 void Message::updateMessageAnimations()
 {
     for(unsigned i = 0; i < messageAnimations.size(); i++)
@@ -159,16 +163,19 @@ void Message::updateMessageAnimations()
     }
 }
 
+//Registers the keys pressed by the user.
 void Message::updateKey(char x)
 {
     key += x;
 }
 
+//Clears the key.
 void Message::clearKey()
 {
     key = "";
 }
 
+//Draw all properties.
 void Message::draw(sf::RenderWindow& w)
 {
     background.draw(w);
@@ -180,6 +187,7 @@ void Message::draw(sf::RenderWindow& w)
         w.draw(vecTexts.at(i));
 }
 
+//If the key is correct, return true.
 bool Message::correctKey()
 {
     if(key == "006633001144")

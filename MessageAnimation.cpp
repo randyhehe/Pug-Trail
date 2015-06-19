@@ -23,6 +23,7 @@ MessageAnimation::MessageAnimation()
     cornerSprites.push_back(tempSprite);
 }
 
+//Updates the movement of the sprite based on direction and animationCounter.
 void MessageAnimation::updateMovement()
 {
     if(clock.getElapsedTime().asSeconds() < 0.10)
@@ -43,6 +44,7 @@ void MessageAnimation::updateMovement()
         animationCounter = 0;
 }
 
+//When the sprite touches a corner, redirect its direction.
 void MessageAnimation::updateTouchCorner()
 {
     if(direction == 0)
@@ -75,24 +77,21 @@ void MessageAnimation::updateTouchCorner()
     }
 }
 
+//Sets the position of the sprite.
 void MessageAnimation::setPosition(int x, int y)
 {
     pugSprite.setPosition(x, y);
 }
 
+//Change the direction of the sprite.
 void MessageAnimation::changeDirection(unsigned i)
 {
     direction = i;
 }
 
+//Draw all properties.
 void MessageAnimation::draw(sf::RenderWindow &w)
 {
-    // for(unsigned i = 0; i < cornerSprites.size(); i++)
-    // {
-    //     cornerSprites.at(i).setTexture(scTexture);
-    //     w.draw(cornerSprites.at(i));
-    // }
-
     unsigned movement = 0;
     if(direction == 3)
         movement = 0;

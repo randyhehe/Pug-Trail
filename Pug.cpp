@@ -18,6 +18,7 @@ Pug::Pug()
     direction = rand() % 4;
 }
 
+//Sets the direction of the mainPug, and disable backwards movement
 void Pug::setDirection(int i)
 {
     //Disables backwards direction
@@ -29,6 +30,10 @@ void Pug::setDirection(int i)
     direction = i;
 }
 
+/*Sets the movement for the mainPug based on the set direction.
+  Increment movementCounter and change the sprite of mainPug based on the counter.
+  Sets the movement and sprite of trailing pugs to match the one in front of it.
+*/
 void Pug::setMovement()
 {
     //Sets a slow tile-like movement. Lower value for faster speed.
@@ -64,6 +69,7 @@ void Pug::setMovement()
     vecDogSprites.at(0).setTextureRect(sf::IntRect(movementCounter, direction  * 32, 32, 32));
 }
 
+//Add a piece into the body.
 void Pug::addDog()
 {
     sf::Sprite pugSprite;
@@ -75,6 +81,7 @@ void Pug::addDog()
     vecDogSprites.push_back(pugSprite);
 }
 
+//Used to reset the game.
 void Pug::reset()
 {
     while(vecDogSprites.size() > 1)
@@ -84,6 +91,7 @@ void Pug::reset()
     direction = rand() % 4;
 }
 
+//Draw all of pug's body.
 void Pug::draw(sf::RenderWindow& w)
 {
     for(unsigned i = 0; i < vecDogSprites.size(); i++)
@@ -92,6 +100,7 @@ void Pug::draw(sf::RenderWindow& w)
     }
 }
 
+//Returns true if object Animal touches the main Pug.
 bool Pug::eatAnimal(Animal &a)
 {
     sf::FloatRect mainPugBox = vecDogSprites.at(0).getGlobalBounds();
@@ -109,6 +118,7 @@ bool Pug::eatAnimal(Animal &a)
     return false;
 }
 
+//Returns true if object Animal spawns on the same spot of any of the snake's trailing body.
 bool Pug::spawnOnBody(Animal &a)
 {
     sf::FloatRect animalBox = a.returnAnimalSprite().getGlobalBounds();
@@ -128,6 +138,7 @@ bool Pug::spawnOnBody(Animal &a)
     return false;
 }
 
+//Returns true if the main Pug touches any of its trailing body.
 bool Pug::hitBody()
 {
     for(unsigned i = 1; i < vecDogSprites.size(); i++)
@@ -145,6 +156,7 @@ bool Pug::hitBody()
     return false;
 }
 
+//Returns true if the main Pug touches the edge walls.
 bool Pug::hitWall()
 {
     sf::Vector2<float> mainPugCoord = vecDogSprites.at(0).getPosition();
@@ -160,6 +172,7 @@ bool Pug::hitWall()
     return false;
 }
 
+//Returns the size of the pug's body.
 unsigned Pug::getSize()
 {
     return vecDogSprites.size();

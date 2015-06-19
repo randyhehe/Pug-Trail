@@ -27,18 +27,21 @@ Sounds::Sounds()
 
 }
 
+//Play dog woof sound.
 void Sounds::playWoof()
 {
 	sound.setBuffer(dogWoof);
 	sound.play();
 }
 
+//Play dog whine sound.
 void Sounds::playWhine()
 {
 	sound.setBuffer(dogWhine);
 	sound.play();
 }
 
+//Play default soundtrack.
 void Sounds::playDefault()
 {
 	backgroundMusic.openFromFile("Sounds/relaxing_music.ogg");
@@ -46,6 +49,7 @@ void Sounds::playDefault()
 	backgroundCounter = 0;
 }
 
+//Play secret soundtrack.
 void Sounds::playSecret()
 {
 	std::string randomSecret = secretMusic.at(rand() % 10);
@@ -55,6 +59,7 @@ void Sounds::playSecret()
 	backgroundCounter = 1;
 }
 
+//Used to continue the music once it stops.
 void Sounds::continueMusic()
 {
 	if(backgroundMusic.getStatus() == sf::SoundSource::Stopped)
@@ -66,16 +71,19 @@ void Sounds::continueMusic()
 	}
 }
 
+//Stops the music.
 void Sounds::stopMusic()
 {
 	backgroundMusic.stop();
 }
 
+//Mutes the music.
 void Sounds::muteMusic()
 {
 	backgroundMusic.setVolume(0);
 }
 
+//Unmutes the music.
 void Sounds::unmuteMusic()
 {
 	if(backgroundCounter == 0)
@@ -84,16 +92,19 @@ void Sounds::unmuteMusic()
 		backgroundMusic.setVolume(50);
 }
 
+//Registers user input.
 void Sounds::updateKey(char x)
 {
 	key += x;
 }
 
+//Clears the key.
 void Sounds::clearKey()
 {
 	key = "";
 }
 
+//Return true if the user inputted "default".
 bool Sounds::checkDefaultCondition()
 {
 	if(key == "ddeeffaauulltt")
@@ -101,6 +112,7 @@ bool Sounds::checkDefaultCondition()
 	return false;
 }
 
+//Return true if the user inputted "bigbang".
 bool Sounds::checkSecretCondition()
 {
 	if(key == "bbiiggbbaanngg")
@@ -108,6 +120,7 @@ bool Sounds::checkSecretCondition()
 	return false;
 }
 
+//Return true if soundtrack is muted.
 bool Sounds::isMuted()
 {
 	if(backgroundMusic.getVolume() == 0)

@@ -73,6 +73,7 @@ Menu::Menu()
     srand(time(0));
 }
 
+//Checks for the highest score and updates it.
 void Menu::updateHighScore()
 {
 	std::stringstream sSS;
@@ -82,6 +83,7 @@ void Menu::updateHighScore()
 	highScore.setString("Most Pugs Captured: " + highScoreString);
 }
 
+//Checks for the recent score and updates it.
 void Menu::updateRecentScore()
 {
 	std::stringstream sSS;
@@ -91,6 +93,7 @@ void Menu::updateRecentScore()
 	recentScore.setString("Latest Capture: " + recentScoreString);
 }
 
+//Updates the Sprite position based of selectionCunter.
 void Menu::updateSelectionLocation()
 {
 	if(selectionCounter == 0)
@@ -103,6 +106,7 @@ void Menu::updateSelectionLocation()
 	}
 }
 
+//Updates the Sprite animaation based on animationCounter.
 void Menu::updateSelectionAnimation()
 {
 	//Normalize animation speed
@@ -120,6 +124,7 @@ void Menu::updateSelectionAnimation()
 
 }
 
+//Opens the scores.txt file and writes into it the high score.
 void Menu::changeHighScore(unsigned i)
 {
 	std::ofstream oSS;
@@ -131,11 +136,13 @@ void Menu::changeHighScore(unsigned i)
     highScoreVal = i;
 }
 
+//Changes the recentscoreVal to i.
 void Menu::changeRecentScore(unsigned i)
 {
 	recentScoreVal = i;
 }
 
+//Changes the selectionCounter based on the integer i.
 void Menu::changeSelectionCounter(int i)
 {
 	if(i < 0 && selectionCounter > 0)
@@ -144,9 +151,9 @@ void Menu::changeSelectionCounter(int i)
 		selectionCounter++;
 }
 
+//Draw all properties.
 void Menu::draw(sf::RenderWindow& w)
 {
-	//Draw all properties
 	w.draw(backgroundSprite);
 	w.draw(playSprite);
 	w.draw(creditsSprite);
@@ -159,16 +166,19 @@ void Menu::draw(sf::RenderWindow& w)
 	w.draw(soundSprite);
 }
 
+//Manages the location of the user's cursor when clicked.
 void Menu::setClickSpritePosition(int x, int y)
 {
 	clickSprite.setPosition(x, y);
 }
 
+//Resets the location of the last click's sprite.
 void Menu::resetClickSpriteLocation()
 {
 	clickSprite.setPosition(0, 0);
 }
 
+//Manages the texture of the sound icon based on mute/unmute.
 void Menu::switchSoundIcon(bool b)
 {
 	if (b == true)
@@ -181,6 +191,7 @@ void Menu::switchSoundIcon(bool b)
 	}
 }
 
+//Returns true if user clicks on the sound icon.
 bool Menu::clicksoundCollison()
 {
 	sf::FloatRect soundBox = soundSprite.getGlobalBounds();
@@ -192,11 +203,13 @@ bool Menu::clicksoundCollison()
 	return false;
 }
 
+//Returns the high score.
 unsigned Menu::returnHighScore()
 {
 	return highScoreVal;
 }
 
+//Returns the selectionCounter;
 unsigned Menu::returnSelectionCounter()
 {
 	return selectionCounter;

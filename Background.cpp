@@ -17,6 +17,7 @@ Background::Background()
     vecBackgrounds.push_back(temp);
 }
 
+//Draw the background.
 void Background::draw(sf::RenderWindow& w)
 {
     for(unsigned i = 0; i < vecBackgrounds.size(); i++)

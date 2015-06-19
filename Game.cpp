@@ -14,6 +14,7 @@ Game::Game()
     score.setPosition(0, 0);
 }
 
+//Updates the score and sets the score while in game.
 void Game::updateScore()
 {
 	std::stringstream sSS;
@@ -23,32 +24,38 @@ void Game::updateScore()
 	score.setString("Pugs Captured: " + scoreString);
 }
 
+//Updates the movement of the mainPug.
 void Game::updateMovement()
 {
 	pug.setMovement();
 }
 
+//Resets the game.
 void Game::reset()
 {
 	pug.reset();
 }
 
+//Used for when the mainPug hits a stray piece. Adds the piece into its vector and sets a new location for the animal.
 void Game::onEat()
 {
 	animal.setRandomLocation();
 	pug.addDog();
 }
 
+//Changes the location of the animal to a random area.
 void Game::changeLocation()
 {
 	animal.setRandomLocation();
 }
 
+//Updates the direction of the mainPug.
 void Game::updateDirection(unsigned i)
 {
 	pug.setDirection(i);
 }
 
+//Draw all properties.
 void Game::draw(sf::RenderWindow& w)
 {
 	background.draw(w);
@@ -58,6 +65,7 @@ void Game::draw(sf::RenderWindow& w)
 
 }
 
+//Return true when pug touches a stray piece.
 bool Game::eatConditions()
 {
 	if(pug.eatAnimal(animal) == true)
@@ -66,6 +74,7 @@ bool Game::eatConditions()
 	return false;
 }
 
+//Return true when pug hits a wall or hits its own body.
 bool Game::loseConditions()
 {
 	if(pug.hitBody() || pug.hitWall() == true)
@@ -74,6 +83,7 @@ bool Game::loseConditions()
 	return false;
 }
 
+//Returns true if animal has same location as the body of the pugs, excluding the mainPug.
 bool Game::spawnOnBody()
 {
 	if(pug.spawnOnBody(animal) == true)
@@ -81,6 +91,7 @@ bool Game::spawnOnBody()
 	return false;
 }
 
+//Returns the size of pug's body.
 unsigned Game::returnSize()
 {
 	return pug.getSize();

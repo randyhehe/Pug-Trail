@@ -42,6 +42,8 @@ Credits::Credits()
 	exitTexture.loadFromFile("Textures/exitTexture.png");
 }
 
+//Increments the animation counter, manages the spriteClock to normalize movement based to time,
+//and updates all the movement of the sprites and its animation.
 void Credits::updatePugMovement()
 {
 	//Normalize animation speed
@@ -62,6 +64,7 @@ void Credits::updatePugMovement()
 	}
 }
 
+//Updates the text counter based on stringClock.
 void Credits::updateTextCounter()
 {
 	if(stringClock.getElapsedTime().asSeconds() < 0.10)
@@ -71,12 +74,14 @@ void Credits::updateTextCounter()
 	textCounter++;
 }
 
+//Updates text to include 0 to textCounter, to make a incremental string animation.
 void Credits::updateText()
 {
 	for(unsigned i = 0; i < vecTexts.size(); i++)
 		vecTexts.at(i).setString(vecStrings.at(i).substr(0, textCounter));
 }
 
+//Makes it so exit only shows up after the text is finished drawing, where 11.50 is the time it took to draw the texts.
 void Credits::updateExitClock()
 {
 	//Set the time when exit option is available
@@ -103,6 +108,7 @@ void Credits::updateExitClock()
 	exitSprite.setPosition(150, 300);
 }
 
+//Resets the Credits screen to be fresh on the next instance.
 void Credits::reset()
 {
 	//Reset all clocks
@@ -120,6 +126,7 @@ void Credits::reset()
 	}
 }
 
+//Draw all instances.
 void Credits::draw(sf::RenderWindow& w)
 {
 	//Draw background
@@ -137,6 +144,7 @@ void Credits::draw(sf::RenderWindow& w)
 	}
 }
 
+//Returns the time of exitClock in seconds.
 float Credits::returnExitClockTime()
 {
 	return exitClock.getElapsedTime().asSeconds();

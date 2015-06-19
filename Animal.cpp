@@ -17,6 +17,7 @@ Animal::Animal()
     setRandomLocation();
 }
 
+//Sets a random location for animal sprite.
 void Animal::setRandomLocation()
 {
     //Randomize x and y values
@@ -28,6 +29,7 @@ void Animal::setRandomLocation()
     animalSprite.setPosition(location);
 }
 
+//Draw and update the animal sprite based on clock time and animationCounter
 void Animal::draw(sf::RenderWindow& w)
 {
     //Draw animation
@@ -46,6 +48,7 @@ void Animal::draw(sf::RenderWindow& w)
     animalSprite.setTextureRect(sf::IntRect(animationCounter, 0, 32, 32));
 }
 
+//Returns the animal sprite
 sf::Sprite Animal::returnAnimalSprite()
 {
     return animalSprite;
