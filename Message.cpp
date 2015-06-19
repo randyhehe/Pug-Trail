@@ -17,6 +17,7 @@ Message::Message()
     vecStrings.push_back("same way. I can't wait to see what unfolds for us in the future. I am very excited for");
     vecStrings.push_back("us and I know that even more amazing things are waiting for us. Happy anniversary!!");
     vecStrings.push_back("                                                                                  With love, your Pug Prince");
+    vecStrings.push_back("                                                                                  (Press Enter to Return to the Menu)");
 
     //Set up ubuntu font
     ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
@@ -53,6 +54,75 @@ Message::Message()
     vecTexts.push_back(tempText);
     tempText.setPosition(50, 450);
     vecTexts.push_back(tempText);
+    tempText.setPosition(50, 470);
+    vecTexts.push_back(tempText);
+
+    //Load messageAnimations top
+    MessageAnimation temp;
+    temp.changeDirection(2);
+    temp.setPosition(40, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(140, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(240, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(340, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(440, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(540, 5);
+    messageAnimations.push_back(temp);
+    temp.setPosition(640, 5);
+    messageAnimations.push_back(temp);
+    // temp.setPosition(740, 5);
+    // messageAnimations.push_back(temp);
+
+    //Load messageAnimations bottom
+    temp.changeDirection(0);
+    temp.setPosition(740, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(640, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(540, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(440, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(340, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(240, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(140, 540);
+    messageAnimations.push_back(temp);
+    temp.setPosition(40, 540);
+    messageAnimations.push_back(temp);
+
+
+    //Load messageAnimations right
+    temp.changeDirection(3);
+    temp.setPosition(744, 30);
+    messageAnimations.push_back(temp);
+    temp.setPosition(744, 150);
+    messageAnimations.push_back(temp);
+    temp.setPosition(744, 250);
+    messageAnimations.push_back(temp);
+    temp.setPosition(744, 350);
+    messageAnimations.push_back(temp);
+    temp.setPosition(744, 450);
+    messageAnimations.push_back(temp);
+
+    //Load messageAnimations left
+    temp.changeDirection(1);
+    temp.setPosition(5, 450);
+    messageAnimations.push_back(temp);
+    temp.setPosition(5, 350);
+    messageAnimations.push_back(temp);
+    temp.setPosition(5, 250);
+    messageAnimations.push_back(temp);
+    temp.setPosition(5, 150);
+    messageAnimations.push_back(temp);
+    temp.setPosition(5, 50);
+    messageAnimations.push_back(temp);
+
 }
 
 void Message::updateTextCounter()
@@ -80,6 +150,15 @@ void Message::resetTextCounter()
     textCounter = 0;
 }
 
+void Message::updateMessageAnimations()
+{
+    for(unsigned i = 0; i < messageAnimations.size(); i++)
+    {
+        messageAnimations.at(i).updateMovement();
+        messageAnimations.at(i).updateTouchCorner();
+    }
+}
+
 void Message::updateKey(char x)
 {
     key += x;
@@ -93,6 +172,9 @@ void Message::clearKey()
 void Message::draw(sf::RenderWindow& w)
 {
     background.draw(w);
+
+    for(unsigned i = 0; i < messageAnimations.size(); i++)
+        messageAnimations.at(i).draw(w);
 
     for(unsigned i = 0; i < vecTexts.size(); i++)
         w.draw(vecTexts.at(i));

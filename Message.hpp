@@ -2,6 +2,7 @@
 #define MESSAGE_H
 
 #include "Background.hpp"
+#include "MessageAnimation.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -21,7 +22,7 @@ class Message
         sf::Clock textClock;
         unsigned textCounter;
         unsigned lineCounter;
-
+        std::vector<MessageAnimation> messageAnimations;
 
     public:
         Message();
@@ -30,6 +31,7 @@ class Message
         void updateText();
         void updateTextCounter();
         void resetTextCounter();
+        void updateMessageAnimations();
         void draw(sf::RenderWindow& w);
         bool correctKey();
 };

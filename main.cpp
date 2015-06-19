@@ -12,6 +12,7 @@
 #include "Credits.hpp"
 #include "Sounds.hpp"
 #include "Message.hpp"
+#include "MessageAnimation.hpp"
 
 int main()
 {
@@ -199,8 +200,12 @@ int main()
         //Message Screen
         while(menuCounter == 3)
         {
+            //Continue music if it stops
+            mainSounds.continueMusic();
+
             mainMessage.updateText();
             mainMessage.updateTextCounter();
+            mainMessage.updateMessageAnimations();
 
             sf::Event event;
             while(window.pollEvent(event))
