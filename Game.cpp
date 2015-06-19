@@ -39,6 +39,11 @@ void Game::onEat()
 	pug.addDog();
 }
 
+void Game::changeLocation()
+{
+	animal.setRandomLocation();
+}
+
 void Game::updateDirection(unsigned i)
 {
 	pug.setDirection(i);
@@ -66,6 +71,13 @@ bool Game::loseConditions()
 	if(pug.hitBody() || pug.hitWall() == true)
 		return true;
 
+	return false;
+}
+
+bool Game::spawnOnBody()
+{
+	if(pug.spawnOnBody(animal) == true)
+		return true;
 	return false;
 }
 

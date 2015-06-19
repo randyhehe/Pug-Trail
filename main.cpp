@@ -238,6 +238,11 @@ int main()
             mainGame.updateScore();
             mainGame.updateMovement();
 
+            if(mainGame.spawnOnBody() == true)
+            {
+                mainGame.changeLocation();
+            }
+
             //End the game
             if(mainGame.loseConditions() == true)
             {

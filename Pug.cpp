@@ -109,6 +109,25 @@ bool Pug::eatAnimal(Animal &a)
     return false;
 }
 
+bool Pug::spawnOnBody(Animal &a)
+{
+    sf::FloatRect animalBox = a.returnAnimalSprite().getGlobalBounds();
+    animalBox.top += 15;
+    animalBox.left += 15;
+    animalBox.width -= 30;
+    animalBox. height -= 30;
+
+    for(int i = 1; i < vecDogSprites.size(); i++)
+    {
+        sf::FloatRect pugBox = vecDogSprites.at(i).getGlobalBounds();
+
+        if(pugBox.intersects(animalBox))
+            return true;
+    }
+
+    return false;
+}
+
 bool Pug::hitBody()
 {
     for(unsigned i = 1; i < vecDogSprites.size(); i++)

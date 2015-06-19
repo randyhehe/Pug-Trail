@@ -32,6 +32,7 @@ class Pug
         void reset();
         void draw(sf::RenderWindow& w);
         bool eatAnimal(Animal &a);
+        bool spawnOnBody(Animal &a);
         bool hitBody();
         bool hitWall();
 

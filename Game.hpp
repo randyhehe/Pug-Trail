@@ -29,10 +29,12 @@ class Game
 		void updateMovement();
 		void reset();
 		void onEat();
+		void changeLocation();
 		void updateDirection(unsigned i);
 		void draw(sf::RenderWindow& w);
 		bool eatConditions();
 		bool loseConditions();
+		bool spawnOnBody();
 
 		//Gets
 		unsigned returnSize();
