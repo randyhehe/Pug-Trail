@@ -4,7 +4,7 @@ Sounds::Sounds()
 :key("")
 {
 	//Randomization
-	srand(time(0));
+	srand((unsigned)time(0));
 
 	//Set background music
 	playDefault();

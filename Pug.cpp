@@ -2,7 +2,7 @@
 
 Pug::Pug()
 {
-    srand(time(0));
+    srand((unsigned)time(0));
 
     //Set pug texture
     pugTexture.loadFromFile("Textures/pug.png");
@@ -75,7 +75,7 @@ void Pug::addDog()
     sf::Sprite pugSprite;
     pugSprite.setTexture(pugTexture);
     pugSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-    pugSprite.setScale(0.90, 0.90);
+    pugSprite.setScale((float)0.9, (float)0.9);
     pugSprite.setPosition(800, 800);
 
     vecDogSprites.push_back(pugSprite);
@@ -127,7 +127,7 @@ bool Pug::spawnOnBody(Animal &a)
     animalBox.width -= 30;
     animalBox. height -= 30;
 
-    for(int i = 1; i < vecDogSprites.size(); i++)
+    for(unsigned i = 1; i < vecDogSprites.size(); i++)
     {
         sf::FloatRect pugBox = vecDogSprites.at(i).getGlobalBounds();
 

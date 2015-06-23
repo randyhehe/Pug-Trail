@@ -122,7 +122,7 @@ void Credits::reset()
 	//Reset positions of sprites
 	for(unsigned i = 0, j = 60; i < vecSprites.size(); i++, j += 30)
 	{
-		vecSprites.at(i).setPosition(50, j);
+		vecSprites.at(i).setPosition((float)50, (float)j);
 	}
 }
 

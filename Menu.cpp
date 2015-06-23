@@ -70,7 +70,7 @@ Menu::Menu()
     iSS.close();
 
     //Initialize clock
-    srand(time(0));
+    srand((unsigned)time(0));
 }
 
 //Checks for the highest score and updates it.
@@ -169,7 +169,7 @@ void Menu::draw(sf::RenderWindow& w)
 //Manages the location of the user's cursor when clicked.
 void Menu::setClickSpritePosition(int x, int y)
 {
-	clickSprite.setPosition(x, y);
+	clickSprite.setPosition((float)x, (float)y);
 }
 
 //Resets the location of the last click's sprite.

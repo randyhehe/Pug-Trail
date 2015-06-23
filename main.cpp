@@ -3,6 +3,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
+#include <Windows.h>
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -16,6 +18,8 @@
 
 int main()
 {
+	FreeConsole();
+
     //Default window
     sf::RenderWindow window(sf::VideoMode(800, 612), "Pug Trail", sf::Style::Titlebar | sf::Style::Close);
 

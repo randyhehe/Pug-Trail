@@ -3,7 +3,7 @@
 Animal::Animal()
 {
     //Initialize srand
-    srand(time(0));
+    srand((unsigned)time(0));
 
     //Initialize texture
     animalTexture.loadFromFile("Textures/pug.png");
@@ -11,7 +11,7 @@ Animal::Animal()
     //Initialize sprite
     animalSprite.setTexture(animalTexture);
     animalSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-    animalSprite.setScale(0.90, 0.90);
+    animalSprite.setScale((float)0.90, (float)0.90);
 
     //Places animalSprite to a random location
     setRandomLocation();
@@ -21,8 +21,8 @@ Animal::Animal()
 void Animal::setRandomLocation()
 {
     //Randomize x and y values
-    float xLocation = (rand() % 30) * 20;
-    float yLocation = (rand() % 30) * 20;
+    float xLocation = float((rand() % 30) * 20);
+    float yLocation = float((rand() % 30) * 20);
     sf::Vector2<float> location(xLocation, yLocation);
 
     //Assign x and y to animalSprite

@@ -80,7 +80,7 @@ void MessageAnimation::updateTouchCorner()
 //Sets the position of the sprite.
 void MessageAnimation::setPosition(int x, int y)
 {
-    pugSprite.setPosition(x, y);
+    pugSprite.setPosition((float)x, (float)y);
 }
 
 //Change the direction of the sprite.
