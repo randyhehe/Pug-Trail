@@ -9,4 +9,4 @@ This is my first experience with implementing graphics and sounds alongside C++.
 Run the .msi file located under the Install directory.
 
 **Running on Linux:**
-Download this repository and install the latest version of SFML http://www.sfml-dev.org/download/sfml/2.3/. Use the makefile to compile and run the program.
+Download this repository and install the latest version of SFML http://www.sfml-dev.org/download/sfml/2.3/. Navigate to the Source_Files folder and Use the makefile to compile and run the program.
