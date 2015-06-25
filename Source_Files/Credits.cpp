@@ -1,4 +1,4 @@
-#include "Credits.hpp"
+#include "../Header_Files/Credits.hpp"
 
 Credits::Credits()
 :background(Background()), textCounter(0), animationCounter(0)

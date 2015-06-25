@@ -9,12 +9,12 @@
 #include <sstream>
 #include <iostream>
 
-#include "Menu.hpp"
-#include "Game.hpp"
-#include "Credits.hpp"
-#include "Sounds.hpp"
-#include "Message.hpp"
-#include "MessageAnimation.hpp"
+#include "../Header_Files/Menu.hpp"
+#include "../Header_Files/Game.hpp"
+#include "../Header_Files/Credits.hpp"
+#include "../Header_Files/Sounds.hpp"
+#include "../Header_Files/Message.hpp"
+#include "../Header_Files/MessageAnimation.hpp"
 
 int main()
 {

@@ -1,4 +1,4 @@
-#include "Sounds.hpp"
+#include "../Header_Files/Sounds.hpp"
 
 Sounds::Sounds()
 :key("")

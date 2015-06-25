@@ -1,4 +1,4 @@
-#include "Menu.hpp"
+#include "../Header_Files/Menu.hpp"
 
 Menu::Menu()
 :recentScoreVal(0), selectionCounter(0), animationCounter(0)
@@ -65,7 +65,7 @@ Menu::Menu()
 
     //Load high score value
     std::ifstream iSS;
-    iSS.open("scores.txt");
+    iSS.open("../Misc_Files/scores.txt");
     iSS >> highScoreVal;
     iSS.close();
 

@@ -1,4 +1,4 @@
-#include "MessageAnimation.hpp"
+#include "../Header_Files/MessageAnimation.hpp"
 
 MessageAnimation::MessageAnimation()
 :direction(0)

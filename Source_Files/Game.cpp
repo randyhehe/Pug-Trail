@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "../Header_Files/Game.hpp"
 
 Game::Game()
 :pug(Pug()), animal(Animal()), background(Background())
