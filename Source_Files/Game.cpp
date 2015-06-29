@@ -4,10 +4,10 @@ Game::Game()
 :pug(Pug()), animal(Animal()), background(Background())
 {
 	//Load Ubuntu Font
-	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
+	ubuntu.loadFromFile("../Fonts/Ubuntu-L.ttf");
 
 	//Load Score Text w/ no setString
-	score.setFont(ubuntu);
+    score.setFont(ubuntu);
     score.setCharacterSize(15);
     score.setColor(sf::Color::White);
     score.setStyle(sf::Text::Bold);
@@ -62,7 +62,6 @@ void Game::draw(sf::RenderWindow& w)
 	w.draw(score);
     animal.draw(w);
     pug.draw(w);
-
 }
 
 //Return true when pug touches a stray piece.
@@ -88,6 +87,7 @@ bool Game::spawnOnBody()
 {
 	if(pug.spawnOnBody(animal) == true)
 		return true;
+
 	return false;
 }
 

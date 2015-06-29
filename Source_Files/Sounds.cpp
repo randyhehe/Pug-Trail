@@ -10,20 +10,20 @@ Sounds::Sounds()
 	playDefault();
 
     //Set dog sounds
-    dogWoof.loadFromFile("Sounds/pug_woof.wav");
-    dogWhine.loadFromFile("Sounds/dog_whine.ogg");
+    dogWoof.loadFromFile("../Sounds/pug_woof.wav");
+    dogWhine.loadFromFile("../Sounds/dog_whine.ogg");
 
 	//Set secretMusic strings
-    secretMusic.push_back("Sounds/bad_boy.ogg");
-    secretMusic.push_back("Sounds/bang_bang_bang.ogg");
-    secretMusic.push_back("Sounds/black.ogg");
-    secretMusic.push_back("Sounds/dont_go_home.ogg");
-    secretMusic.push_back("Sounds/fantastic_baby.ogg");
-    secretMusic.push_back("Sounds/good_boy.ogg");
-    secretMusic.push_back("Sounds/haru_haru.ogg");
-    secretMusic.push_back("Sounds/lies.ogg");
-    secretMusic.push_back("Sounds/that_xx.ogg");
-    secretMusic.push_back("Sounds/we_like_2_party.ogg");
+    secretMusic.push_back("../Sounds/bad_boy.ogg");
+    secretMusic.push_back("../Sounds/bang_bang_bang.ogg");
+    secretMusic.push_back("../Sounds/black.ogg");
+    secretMusic.push_back("../Sounds/dont_go_home.ogg");
+    secretMusic.push_back("../Sounds/fantastic_baby.ogg");
+    secretMusic.push_back("../Sounds/good_boy.ogg");
+    secretMusic.push_back("../Sounds/haru_haru.ogg");
+    secretMusic.push_back("../Sounds/lies.ogg");
+    secretMusic.push_back("../Sounds/that_xx.ogg");
+    secretMusic.push_back("../Sounds/we_like_2_party.ogg");
 
 }
 
@@ -44,7 +44,7 @@ void Sounds::playWhine()
 //Play default soundtrack.
 void Sounds::playDefault()
 {
-	backgroundMusic.openFromFile("Sounds/relaxing_music.ogg");
+	backgroundMusic.openFromFile("../Sounds/relaxing_music.ogg");
 	backgroundMusic.play();
 	backgroundCounter = 0;
 }
@@ -109,6 +109,7 @@ bool Sounds::checkDefaultCondition()
 {
 	if(key == "ddeeffaauulltt")
 		return true;
+
 	return false;
 }
 
@@ -117,6 +118,7 @@ bool Sounds::checkSecretCondition()
 {
 	if(key == "bbiiggbbaanngg")
 		return true;
+
 	return false;
 }
 

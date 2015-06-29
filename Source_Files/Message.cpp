@@ -20,19 +20,19 @@ Message::Message()
     vecStrings.push_back("                                                                                  (Press Enter to Return to the Menu)");
 
     //Set up ubuntu font
-    ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
+    ubuntu.loadFromFile("../Fonts/Ubuntu-L.ttf");
 
     //Load text properties
     sf::Text tempText;
 	tempText.setFont(ubuntu);
-	tempText.setCharacterSize(15);
+    tempText.setCharacterSize(15);
 	tempText.setColor(sf::Color::Black);
 	tempText.setStyle(sf::Text::Bold);
     tempText.setPosition(50, 70);
 	vecTexts.push_back(tempText);
 	tempText.setPosition(50, 100);
 	vecTexts.push_back(tempText);
-	tempText.setPosition(50, 130);
+    tempText.setPosition(50, 130);
 	vecTexts.push_back(tempText);
     tempText.setPosition(50, 160);
     vecTexts.push_back(tempText);
@@ -141,9 +141,7 @@ void Message::updateText()
     for(unsigned i = 0; i < vecStrings.size(); i++)
     {
         if(vecStrings.at(i).substr(0, textCounter) != vecStrings.at(i))
-        {
             vecTexts.at(i).setString(vecStrings.at(i).substr(0, textCounter + 1));
-        }
     }
 }
 

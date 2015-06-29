@@ -6,7 +6,7 @@ Animal::Animal()
     srand((unsigned)time(0));
 
     //Initialize texture
-    animalTexture.loadFromFile("Textures/pug.png");
+    animalTexture.loadFromFile("../Textures/pug.png");
 
     //Initialize sprite
     animalSprite.setTexture(animalTexture);

@@ -4,48 +4,48 @@ Menu::Menu()
 :recentScoreVal(0), selectionCounter(0), animationCounter(0)
 {
 	//Load ubuntu font
-	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
+	ubuntu.loadFromFile("../Fonts/Ubuntu-L.ttf");
 
 	//Load title texture and sprite
-	titleTexture.loadFromFile("Textures/pug_trail.png");
+	titleTexture.loadFromFile("../Textures/pug_trail.png");
 	titleSprite.setTexture(titleTexture);
 	titleSprite.setPosition(250, 330);
 
 	//Load background texture and sprite
-	backgroundTexture.loadFromFile("Textures/grass_menu.jpg");
+	backgroundTexture.loadFromFile("../Textures/grass_menu.jpg");
 	backgroundSprite.setTexture(backgroundTexture);
 
 	//Load play texture and sprite
-	playTexture.loadFromFile("Textures/play.png");
+	playTexture.loadFromFile("../Textures/play.png");
 	playSprite.setTexture(playTexture);
 	playSprite.setPosition(303, 405);
 
 	//Load credits texture and sprite
-	creditsTexture.loadFromFile("Textures/credits.png");
+	creditsTexture.loadFromFile("../Textures/credits.png");
 	creditsSprite.setTexture(creditsTexture);
 	creditsSprite.setPosition(303, 440);
 
 	//Load pug texture and sprite
-    pugTexture.loadFromFile("Textures/pugScreen.png");
+    pugTexture.loadFromFile("../Textures/pugScreen.png");
     pugSprite.setTexture(pugTexture);
     pugSprite.setPosition(170, 0);
 
     //Load selection texture and sprite
-    selectionTexture.loadFromFile("Textures/pug.png");
+    selectionTexture.loadFromFile("../Textures/pug.png");
     selectionSprite.setTexture(selectionTexture);
     selectionSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     selectionSprite.setPosition(280, 408);
 
 	//Load sound texture and sprite
-	soundTexture.loadFromFile("Textures/sound.png");
+	soundTexture.loadFromFile("../Textures/sound.png");
 	soundSprite.setTexture(soundTexture);
 	soundSprite.setPosition(740, 550);
 
 	//Load muted sound texture
-	mutedsoundTexture.loadFromFile("Textures/soundmute.png");
+	mutedsoundTexture.loadFromFile("../Textures/soundmute.png");
 
 	//Load click texture and sprite
-	clickTexture.loadFromFile("Textures/starcraft.png");
+	clickTexture.loadFromFile("../Textures/starcraft.png");
 	clickSprite.setTexture(clickTexture);
 	clickSprite.setTextureRect(sf::IntRect(0, 0, 1, 1));
 
@@ -97,13 +97,9 @@ void Menu::updateRecentScore()
 void Menu::updateSelectionLocation()
 {
 	if(selectionCounter == 0)
-	{
 		selectionSprite.setPosition(280, 410);
-	}
 	else if(selectionCounter == 1)
-	{
 		selectionSprite.setPosition(280, 445);
-	}
 }
 
 //Updates the Sprite animaation based on animationCounter.
@@ -128,7 +124,7 @@ void Menu::updateSelectionAnimation()
 void Menu::changeHighScore(unsigned i)
 {
 	std::ofstream oSS;
-    oSS.open("scores.txt");
+    oSS.open("../Misc_Files/scores.txt");
     oSS << i;
     oSS.close();
 

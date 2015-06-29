@@ -3,12 +3,12 @@
 MessageAnimation::MessageAnimation()
 :direction(0)
 {
-    pugTexture.loadFromFile("Textures/pug.png");
+    pugTexture.loadFromFile("../Textures/pug.png");
 
     pugSprite.setTexture(pugTexture);
     pugSprite.setTextureRect(sf::IntRect(0, 0, 32 ,32));
 
-    scTexture.loadFromFile("Textures/starcraft.png");
+    scTexture.loadFromFile("../Textures/starcraft.png");
 
     sf::Sprite tempSprite;
     tempSprite.setTexture(scTexture);
@@ -50,30 +50,22 @@ void MessageAnimation::updateTouchCorner()
     if(direction == 0)
     {
         if((pugSprite.getGlobalBounds()).intersects(cornerSprites.at(2).getGlobalBounds()))
-        {
             direction = 1;
-        }
     }
     else if(direction == 1)
     {
         if((pugSprite.getGlobalBounds()).intersects(cornerSprites.at(0).getGlobalBounds()))
-        {
             direction = 2;
-        }
     }
     else if(direction == 2)
     {
         if((pugSprite.getGlobalBounds()).intersects(cornerSprites.at(1).getGlobalBounds()))
-        {
             direction = 3;
-        }
     }
     else if(direction == 3)
     {
         if((pugSprite.getGlobalBounds()).intersects(cornerSprites.at(3).getGlobalBounds()))
-        {
             direction = 0;
-        }
     }
 }
 

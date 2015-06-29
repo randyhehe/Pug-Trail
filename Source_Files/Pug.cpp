@@ -5,7 +5,7 @@ Pug::Pug()
     srand((unsigned)time(0));
 
     //Set pug texture
-    pugTexture.loadFromFile("Textures/pug.png");
+    pugTexture.loadFromFile("../Textures/pug.png");
 
     //Initialize first pug
     sf::Sprite pugSprite;
@@ -134,7 +134,6 @@ bool Pug::spawnOnBody(Animal &a)
         if(pugBox.intersects(animalBox))
             return true;
     }
-
     return false;
 }
 

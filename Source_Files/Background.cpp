@@ -3,7 +3,7 @@
 Background::Background()
 {
     //Load texture
-    backgroundTexture.loadFromFile("Textures/grass.png");
+    backgroundTexture.loadFromFile("../Textures/grass.png");
 
     //Set background sprite
     sf::Sprite temp;

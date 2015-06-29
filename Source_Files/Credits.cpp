@@ -4,7 +4,7 @@ Credits::Credits()
 :background(Background()), textCounter(0), animationCounter(0)
 {
 	//Load ubuntu
-	ubuntu.loadFromFile("Fonts/Ubuntu-L.ttf");
+	ubuntu.loadFromFile("../Fonts/Ubuntu-L.ttf");
 
 	//Load all texts and set their positions
 	sf::Text tempText;
@@ -25,7 +25,7 @@ Credits::Credits()
 	vecStrings.push_back("Dedicated for Nina Dionisio and for our first year anniversary.");
 
 	//Load pugTexture
-	pugTexture.loadFromFile("Textures/pug.png");
+	pugTexture.loadFromFile("../Textures/pug.png");
 
 	//Set up all pug sprites and their positions
 	sf::Sprite tempSprite;
@@ -39,7 +39,7 @@ Credits::Credits()
 	vecSprites.push_back(tempSprite);
 
 	//Load exitTexture
-	exitTexture.loadFromFile("Textures/exitTexture.png");
+	exitTexture.loadFromFile("../Textures/exitTexture.png");
 }
 
 //Increments the animation counter, manages the spriteClock to normalize movement based to time,
