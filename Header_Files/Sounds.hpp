@@ -13,14 +13,14 @@
 class Sounds
 {
 	private:
-		//Private variables
+		// Private variables
 		sf::Clock clock;
 		sf::Music backgroundMusic;
 		sf::SoundBuffer dogWoof;
 		sf::SoundBuffer dogWhine;
 		sf::Sound sound;
 
-		//Counters
+		// Counters
 		unsigned backgroundCounter;
 
 		//Secret variables
@@ -28,10 +28,10 @@ class Sounds
 		std::string key;
 
 	public:
-		//Constructor
+		// Constructor
 		Sounds();
 
-		//Methods
+		// Methods
 		void playWoof();
 		void playWhine();
 		void playDefault();

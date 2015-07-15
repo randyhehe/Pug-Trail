@@ -16,7 +16,7 @@ class MessageAnimation
         sf::Sprite pugSprite;
         sf::Texture scTexture;
         std::vector<sf::Sprite> cornerSprites;
-        unsigned direction; //0 LEFT, 1 UP, 2 RIGHT, 3 DOWN
+        unsigned direction; // 0 LEFT, 1 UP, 2 RIGHT, 3 DOWN
         unsigned animationCounter;
 
     public:

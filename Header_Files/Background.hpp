@@ -11,15 +11,15 @@
 class Background
 {
     private:
-        //Private variables
+        // Private variables
         sf::Texture backgroundTexture;
         std::vector<sf::Sprite> vecBackgrounds;
 
     public:
-        //Constructor
+        // Constructor
         Background();
 
-        //Methods
+        // Methods
         void draw(sf::RenderWindow& w);
 };
 

@@ -3,7 +3,7 @@
 Message::Message()
 :key("")
 {
-    //Set up vecStrings
+    // Set up vecStrings
     vecStrings.push_back("To my love:");
     vecStrings.push_back("Hi my princess! Thank you so much for giving me the chance to be a part of your life.");
     vecStrings.push_back("This past year has been incredible for me and I don't regret it a single bit. I can't");
@@ -19,10 +19,10 @@ Message::Message()
     vecStrings.push_back("                                                                                  With love, your Pug Prince");
     vecStrings.push_back("                                                                                  (Press Enter to Return to the Menu)");
 
-    //Set up ubuntu font
+    // Set up ubuntu font
     ubuntu.loadFromFile("../Fonts/Ubuntu-L.ttf");
 
-    //Load text properties
+    // Load text properties
     sf::Text tempText;
 	tempText.setFont(ubuntu);
     tempText.setCharacterSize(15);
@@ -57,7 +57,7 @@ Message::Message()
     tempText.setPosition(50, 470);
     vecTexts.push_back(tempText);
 
-    //Load messageAnimations top
+    // Load messageAnimations top
     MessageAnimation temp;
     temp.changeDirection(2);
     temp.setPosition(40, 5);
@@ -74,10 +74,8 @@ Message::Message()
     messageAnimations.push_back(temp);
     temp.setPosition(640, 5);
     messageAnimations.push_back(temp);
-    // temp.setPosition(740, 5);
-    // messageAnimations.push_back(temp);
 
-    //Load messageAnimations bottom
+    // Load messageAnimations bottom
     temp.changeDirection(0);
     temp.setPosition(740, 540);
     messageAnimations.push_back(temp);
@@ -97,7 +95,7 @@ Message::Message()
     messageAnimations.push_back(temp);
 
 
-    //Load messageAnimations right
+    // Load messageAnimations right
     temp.changeDirection(3);
     temp.setPosition(744, 30);
     messageAnimations.push_back(temp);
@@ -110,7 +108,7 @@ Message::Message()
     temp.setPosition(744, 450);
     messageAnimations.push_back(temp);
 
-    //Load messageAnimations left
+    // Load messageAnimations left
     temp.changeDirection(1);
     temp.setPosition(5, 450);
     messageAnimations.push_back(temp);
@@ -125,7 +123,7 @@ Message::Message()
 
 }
 
-//Updates the textCounter based on textClock.
+// Updates the textCounter based on textClock.
 void Message::updateTextCounter()
 {
 	if(textClock.getElapsedTime().asSeconds() < 0.10)
@@ -135,7 +133,7 @@ void Message::updateTextCounter()
 	textCounter++;
 }
 
-//Updates the text of all lines based on textCounter.
+// Updates the text of all lines based on textCounter.
 void Message::updateText()
 {
     for(unsigned i = 0; i < vecStrings.size(); i++)
@@ -145,13 +143,13 @@ void Message::updateText()
     }
 }
 
-//Resets the textCounter.
+// Resets the textCounter.
 void Message::resetTextCounter()
 {
     textCounter = 0;
 }
 
-//Updates the messageAnimations movement and direction.
+// Updates the messageAnimations movement and direction.
 void Message::updateMessageAnimations()
 {
     for(unsigned i = 0; i < messageAnimations.size(); i++)
@@ -161,19 +159,19 @@ void Message::updateMessageAnimations()
     }
 }
 
-//Registers the keys pressed by the user.
+// Registers the keys pressed by the user.
 void Message::updateKey(char x)
 {
     key += x;
 }
 
-//Clears the key.
+// Clears the key.
 void Message::clearKey()
 {
     key = "";
 }
 
-//Draw all properties.
+// Draw all properties.
 void Message::draw(sf::RenderWindow& w)
 {
     background.draw(w);
@@ -185,7 +183,7 @@ void Message::draw(sf::RenderWindow& w)
         w.draw(vecTexts.at(i));
 }
 
-//If the key is correct, return true.
+// If the key is correct, return true.
 bool Message::correctKey()
 {
     if(key == "006633001144")

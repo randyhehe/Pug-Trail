@@ -13,17 +13,17 @@ MessageAnimation::MessageAnimation()
     sf::Sprite tempSprite;
     tempSprite.setTexture(scTexture);
     tempSprite.setTextureRect(sf::IntRect(0, 0, 1, 1));
-    tempSprite.setPosition(5, 5); //Top-left Corner
+    tempSprite.setPosition(5, 5); // Top-left Corner
     cornerSprites.push_back(tempSprite);
-    tempSprite.setPosition(770, 5); //Top-right Corner
+    tempSprite.setPosition(770, 5); // Top-right Corner
     cornerSprites.push_back(tempSprite);
-    tempSprite.setPosition(5, 570); //Bottom-left Corner
+    tempSprite.setPosition(5, 570); // Bottom-left Corner
     cornerSprites.push_back(tempSprite);
-    tempSprite.setPosition(770, 570); //Bottom-right Corner
+    tempSprite.setPosition(770, 570); // Bottom-right Corner
     cornerSprites.push_back(tempSprite);
 }
 
-//Updates the movement of the sprite based on direction and animationCounter.
+// Updates the movement of the sprite based on direction and animationCounter.
 void MessageAnimation::updateMovement()
 {
     if(clock.getElapsedTime().asSeconds() < 0.10)
@@ -44,7 +44,7 @@ void MessageAnimation::updateMovement()
         animationCounter = 0;
 }
 
-//When the sprite touches a corner, redirect its direction.
+// When the sprite touches a corner, redirect its direction.
 void MessageAnimation::updateTouchCorner()
 {
     if(direction == 0)
@@ -69,19 +69,19 @@ void MessageAnimation::updateTouchCorner()
     }
 }
 
-//Sets the position of the sprite.
+// Sets the position of the sprite.
 void MessageAnimation::setPosition(int x, int y)
 {
     pugSprite.setPosition((float)x, (float)y);
 }
 
-//Change the direction of the sprite.
+// Change the direction of the sprite.
 void MessageAnimation::changeDirection(unsigned i)
 {
     direction = i;
 }
 
-//Draw all properties.
+// Draw all properties.
 void MessageAnimation::draw(sf::RenderWindow &w)
 {
     unsigned movement = 0;

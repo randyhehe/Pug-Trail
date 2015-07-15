@@ -14,7 +14,7 @@
 class Pug
 {
     private:
-        //Private variables
+        // Private variables
         sf::Texture pugTexture;
         sf::Clock clock;
         std::vector<sf::Sprite> vecDogSprites;
@@ -22,10 +22,10 @@ class Pug
         unsigned movementCounter;
 
     public:
-        //Constructor
+        // Constructor
         Pug();
 
-        //Methods
+        // Methods
         void setDirection(int i);
         void setMovement();
         void addDog();
@@ -36,7 +36,7 @@ class Pug
         bool hitBody();
         bool hitWall();
 
-        //Gets
+        // Gets
         unsigned getSize();
 };
 

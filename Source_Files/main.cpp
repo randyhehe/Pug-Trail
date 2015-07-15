@@ -18,40 +18,40 @@ int main()
 {
     // FreeConsole();
 
-    //Default window
+    // Default window
     sf::RenderWindow window(sf::VideoMode(800, 612), "Pug Trail", sf::Style::Titlebar | sf::Style::Close);
 
-    //Main variables
+    // Main variables
     Game    mainGame;
     Menu    mainMenu;
     Sounds  mainSounds;
     Credits mainCredits;
     Message mainMessage;
 
-    //menuCounter == 1 -> Main Menu
-    //menuCounter == 0 -> Game Menu
-    //menuCounter == 2 -> Credits Menu
-    //menuCounter == 3 -> Message
-    //menuCounter == 4 -> Terminate Program
+    // menuCounter == 1 -> Main Menu
+    // menuCounter == 0 -> Game Menu
+    // menuCounter == 2 -> Credits Menu
+    // menuCounter == 3 -> Message
+    // menuCounter == 4 -> Terminate Program
     unsigned menuCounter = 1;
 
-    //Game loop
+    // Game loop
     while(window.isOpen())
     {
 
-        //Menu screen
+        // Menu screen
         while(menuCounter == 1)
         {
-            //Continue music when finished
+            // Continue music when finished
             mainSounds.continueMusic();
 
-            //Updates
+            // Updates
             mainMenu.updateHighScore();
             mainMenu.updateRecentScore();
             mainMenu.updateSelectionLocation();
             mainMenu.updateSelectionAnimation();
 
-            //Music toggle
+            // Music toggle
             if(mainMenu.clicksoundCollison() == true)
             {
                 if(mainSounds.isMuted() == false)
@@ -68,7 +68,7 @@ int main()
                 }
             }
 
-            //Switch to default music
+            // Switch to default music
             if(mainSounds.checkDefaultCondition() == true)
             {
                 mainSounds.clearKey();
@@ -76,7 +76,7 @@ int main()
                 mainSounds.playDefault();
             }
 
-            //Switch to secret music
+            // Switch to secret music
             else if(mainSounds.checkSecretCondition() == true)
             {
                 mainSounds.clearKey();
@@ -91,7 +91,7 @@ int main()
                 break;
             }
 
-            //Event handling
+            // Event handling
             sf::Event event;
             while(window.pollEvent(event))
             {
@@ -159,25 +159,25 @@ int main()
                 }
             }
 
-            //window display
+            // window display
             window.clear(sf::Color::White);
             mainMenu.draw(window);
             window.display();
         }
 
-        //Credit Screen
+        // Credit Screen
         while(menuCounter == 2)
         {
-            //Continue music if it stops
+            // Continue music if it stops
             mainSounds.continueMusic();
 
-            //Credits updating
+            // Credits updating
             mainCredits.updateTextCounter();
             mainCredits.updateText();
             mainCredits.updatePugMovement();
             mainCredits.updateExitClock();
 
-            //Event loop
+            // Event loop
             sf::Event event;
             while(window.pollEvent(event))
             {
@@ -193,16 +193,16 @@ int main()
                 }
             }
 
-            //window display
+            // window display
             window.clear(sf::Color::White);
             mainCredits.draw(window);
             window.display();
         }
 
-        //Message Screen
+        // Message Screen
         while(menuCounter == 3)
         {
-            //Continue music if it stops
+            // Continue music if it stops
             mainSounds.continueMusic();
 
             mainMessage.updateText();
@@ -224,19 +224,19 @@ int main()
                 }
             }
 
-            //window display
+            // Window display
             window.clear(sf::Color::White);
             mainMessage.draw(window);
             window.display();
         }
 
-        //Game Screen
+        // Game Screen
         while(menuCounter == 0)
         {
-            //Continue music if it stops
+            // Continue music if it stops
             mainSounds.continueMusic();
 
-            //Game updating
+            // Game updating
             mainGame.updateScore();
             mainGame.updateMovement();
 
@@ -245,40 +245,40 @@ int main()
                 mainGame.changeLocation();
             }
 
-            //End the game
+            // End the game
             if(mainGame.loseConditions() == true)
             {
-                //Set screen back to menu
+                // Set screen back to menu
                 menuCounter = 1;
 
-                //Update high Ssore
+                // Update high Ssore
                 if(mainGame.returnSize() > mainMenu.returnHighScore())
                 {
                     mainMenu.changeHighScore(mainGame.returnSize());
                 }
 
-                //Update recent score
+                // Update recent score
                 mainMenu.changeRecentScore(mainGame.returnSize());
 
-                //Reset game properties
+                // Reset game properties
                 mainGame.reset();
 
-                //Play dog whine
+                // Play dog whine
                 if(mainSounds.isMuted() == false)
                     mainSounds.playWhine();
             }
 
-            //Consume
+            // Consume
             if(mainGame.eatConditions() == true)
             {
                 mainGame.onEat();
 
-                //Pug woof sound
+                // Pug woof sound
                 if(mainSounds.isMuted() == false)
                     mainSounds.playWoof();
             }
 
-            //Event handling
+            // Event handling
             sf::Event event;
             while(window.pollEvent(event))
             {
@@ -297,7 +297,7 @@ int main()
                     mainGame.updateDirection(3);
         }
 
-        //Window display
+        // Window display
         window.clear();
         mainGame.draw(window);
         window.display();

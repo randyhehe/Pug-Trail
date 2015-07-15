@@ -13,7 +13,7 @@
 class Game
 {
 	private:
-		//Private variables
+		// Private variables
 		Pug	pug;
 		Animal animal;
 		Background background;
@@ -21,10 +21,10 @@ class Game
 		sf::Text score;
 
 	public:
-		//Constructor
+		// Constructor
 		Game();
 
-		//Methods
+		// Methods
 		void updateScore();
 		void updateMovement();
 		void reset();
@@ -36,7 +36,7 @@ class Game
 		bool loseConditions();
 		bool spawnOnBody();
 
-		//Gets
+		// Gets
 		unsigned returnSize();
 };
 

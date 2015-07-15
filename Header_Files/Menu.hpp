@@ -13,14 +13,14 @@
 class Menu
 {
 	private:
-		//Fonts and Texts
+		// Fonts and Texts
 		sf::Font ubuntu;
 		sf::Text highScore;
 		sf::Text recentScore;
 		unsigned recentScoreVal;
 		unsigned highScoreVal;
 
-		//Textures
+		// Textures
 		sf::Texture backgroundTexture;
 		sf::Texture titleTexture;
 		sf::Texture playTexture;
@@ -31,7 +31,7 @@ class Menu
 		sf::Texture mutedsoundTexture;
 		sf::Texture clickTexture;
 
-		//Sprites
+		// Sprites
 		sf::Sprite backgroundSprite;
 		sf::Sprite titleSprite;
 		sf::Sprite playSprite;
@@ -41,19 +41,19 @@ class Menu
 		sf::Sprite soundSprite;
 		sf::Sprite clickSprite;
 
-		//Counters
+		// Counters
 		unsigned selectionCounter;
 		unsigned animationCounter;
 		bool secretCounter;
 
-		//Clock
+		// Clock
 		sf::Clock clock;
 
 	public:
-		//Constructor
+		// Constructor
 		Menu();
 
-		//Methods
+		// Methods
 		void updateHighScore();
 		void updateRecentScore();
 		void updateSelectionLocation();

@@ -13,7 +13,7 @@
 class Credits
 {
 	private:
-		//Private variables
+		// Private variables
 		Background background;
 		sf::Clock stringClock;
 		sf::Clock spriteClock;
@@ -26,15 +26,15 @@ class Credits
 		std::vector<sf::Text> vecTexts;
 		std::vector<sf::Sprite> vecSprites;
 
-		//Counters
+		// Counters
 		unsigned textCounter;
 		unsigned animationCounter;
 
 	public:
-		//Constructor
+		// Constructor
 		Credits();
 
-		//Methods
+		// Methods
 		void updateTextCounter();
 		void updateText();
 		void updatePugMovement();
@@ -42,7 +42,7 @@ class Credits
 		void reset();
 		void draw(sf::RenderWindow& w);
 
-		//Gets
+		// Gets
 		float returnExitClockTime();
 };
 

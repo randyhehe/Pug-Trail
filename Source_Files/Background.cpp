@@ -2,10 +2,10 @@
 
 Background::Background()
 {
-    //Load texture
+    // Load texture
     backgroundTexture.loadFromFile("../Textures/grass.png");
 
-    //Set background sprite
+    // Set background sprite
     sf::Sprite temp;
     temp.setTexture(backgroundTexture);
     vecBackgrounds.push_back(temp);
@@ -17,7 +17,7 @@ Background::Background()
     vecBackgrounds.push_back(temp);
 }
 
-//Draw the background.
+// Draw the background.
 void Background::draw(sf::RenderWindow& w)
 {
     for(unsigned i = 0; i < vecBackgrounds.size(); i++)

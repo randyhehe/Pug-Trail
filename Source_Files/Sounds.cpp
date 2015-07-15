@@ -3,17 +3,17 @@
 Sounds::Sounds()
 :key("")
 {
-	//Randomization
+	// Randomization
 	srand((unsigned)time(0));
 
-	//Set background music
+	// Set background music
 	playDefault();
 
-    //Set dog sounds
+    // Set dog sounds
     dogWoof.loadFromFile("../Sounds/pug_woof.wav");
     dogWhine.loadFromFile("../Sounds/dog_whine.ogg");
 
-	//Set secretMusic strings
+	// Set secretMusic strings
     secretMusic.push_back("../Sounds/bad_boy.ogg");
     secretMusic.push_back("../Sounds/bang_bang_bang.ogg");
     secretMusic.push_back("../Sounds/black.ogg");
@@ -27,21 +27,21 @@ Sounds::Sounds()
 
 }
 
-//Play dog woof sound.
+// Play dog woof sound.
 void Sounds::playWoof()
 {
 	sound.setBuffer(dogWoof);
 	sound.play();
 }
 
-//Play dog whine sound.
+// Play dog whine sound.
 void Sounds::playWhine()
 {
 	sound.setBuffer(dogWhine);
 	sound.play();
 }
 
-//Play default soundtrack.
+// Play default soundtrack.
 void Sounds::playDefault()
 {
 	backgroundMusic.openFromFile("../Sounds/relaxing_music.ogg");
@@ -49,7 +49,7 @@ void Sounds::playDefault()
 	backgroundCounter = 0;
 }
 
-//Play secret soundtrack.
+// Play secret soundtrack.
 void Sounds::playSecret()
 {
 	std::string randomSecret = secretMusic.at(rand() % 10);
@@ -59,7 +59,7 @@ void Sounds::playSecret()
 	backgroundCounter = 1;
 }
 
-//Used to continue the music once it stops.
+// Used to continue the music once it stops.
 void Sounds::continueMusic()
 {
 	if(backgroundMusic.getStatus() == sf::SoundSource::Stopped)
@@ -71,19 +71,19 @@ void Sounds::continueMusic()
 	}
 }
 
-//Stops the music.
+// Stops the music.
 void Sounds::stopMusic()
 {
 	backgroundMusic.stop();
 }
 
-//Mutes the music.
+// Mutes the music.
 void Sounds::muteMusic()
 {
 	backgroundMusic.setVolume(0);
 }
 
-//Unmutes the music.
+// Unmutes the music.
 void Sounds::unmuteMusic()
 {
 	if(backgroundCounter == 0)
@@ -92,19 +92,19 @@ void Sounds::unmuteMusic()
 		backgroundMusic.setVolume(50);
 }
 
-//Registers user input.
+// Registers user input.
 void Sounds::updateKey(char x)
 {
 	key += x;
 }
 
-//Clears the key.
+// Clears the key.
 void Sounds::clearKey()
 {
 	key = "";
 }
 
-//Return true if the user inputted "default".
+// Return true if the user inputted "default".
 bool Sounds::checkDefaultCondition()
 {
 	if(key == "ddeeffaauulltt")
@@ -113,7 +113,7 @@ bool Sounds::checkDefaultCondition()
 	return false;
 }
 
-//Return true if the user inputted "bigbang".
+// Return true if the user inputted "bigbang".
 bool Sounds::checkSecretCondition()
 {
 	if(key == "bbiiggbbaanngg")
@@ -122,7 +122,7 @@ bool Sounds::checkSecretCondition()
 	return false;
 }
 
-//Return true if soundtrack is muted.
+// Return true if soundtrack is muted.
 bool Sounds::isMuted()
 {
 	if(backgroundMusic.getVolume() == 0)
