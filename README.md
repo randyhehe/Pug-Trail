@@ -4,7 +4,8 @@
 ![my image](http://i.imgur.com/CnydtNo.png)
 
 **Running on Linux:**
-If you don't already have SFML installed,
+If you don't already have SFML installed:
+
 `1) sudo apt-get install libsfml-dev`
 
 ```
